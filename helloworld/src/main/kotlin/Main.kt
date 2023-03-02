@@ -17,6 +17,6 @@ fun main(args: Array<String>) {
     var name = "Рудий"
     name += " \uD83D\uDC06"
     age = 6
-    weight = 8.5f
+    weight = 8.2f
     println("Кошеня №3 - $name віком $age років, та вагою $weight кг")
     }
