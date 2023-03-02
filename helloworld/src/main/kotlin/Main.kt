@@ -16,32 +16,25 @@ fun main(args: Array<String>) {
 }
 
 fun strCalculate(
-    x0: String = "TJACG",
-    x1: String = "ACTJG"
+    x0: String = "ATCATC",
+    x1: String = "AAAAAA"
 ): Int = compareEvenChars(x0, x1)
 
 fun compareEvenChars(string1: String, string2: String): Int {
     var mismatches = 0
-
-    val string1SecondHalf = string1.substring(string1.length / 2, string1.length)
-    val string2SecondHalf = string2.substring(string2.length / 2, string2.length)
-
     if (string1.length != string2.length) throw Exception("String must be equal")
     else {
         for (i in string1.indices step 2) {
-            for (j in string2.indices step 2) {
-                if (string1[i] != string2[j]) {
-                    if (string1[i] in string1SecondHalf && string2[j] in string2SecondHalf)
-                        mismatches += 2
-                    else
-                        mismatches++
-                }
+            val char1 = string1[i]
+            val char2 = string2[i]
+            if (char1 != char2) {
+                if (i > string1.length / 2) mismatches += 2
+                else mismatches++
             }
         }
     }
     return mismatches
 }
-
 fun dCalculate(
     x0: Double = -14.3,
     x1: Double = 74.8,
