@@ -1,4 +1,4 @@
-fun seed(): String = "user"
+fun seed(): String = "Sergey1Getman"
 
  fun labNumber() : Int = 1
 
