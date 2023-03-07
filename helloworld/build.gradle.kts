@@ -8,9 +8,13 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    maven("file://${rootDir}/.m2repo/")
 }
 
 dependencies {
+    implementation("com.diacht.ktest:library:1.0.1")
+    implementation(compose.desktop.currentOs)
     testImplementation(kotlin("test"))
 }
 
@@ -19,7 +23,7 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(17)
 }
 
 application {
