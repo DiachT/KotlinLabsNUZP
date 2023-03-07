@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestLogging
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -54,4 +55,16 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("MainKt")
+}
+
+tasks.withType<Test> {
+    testLogging {
+        showCauses = true
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_OUT)
+        events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_ERROR)
+        events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED)
+        events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED)
+        events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED)
+    }
 }
