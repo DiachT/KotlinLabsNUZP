@@ -27,22 +27,21 @@ internal class MainTest {
                 main(emptyArray())
                 assertEquals("Щось не так з третім кошеням", 5, buffer.lines().size)
                 val lastLine = buffer.lines()[3]
-                assertTrue(
-                    lastLine.contains("рудий", true) &&
-                            lastLine.contains("\uD83D\uDC06") &&
-                            lastLine.contains("кошеня №3", ignoreCase = true) &&
-                            lastLine.contains("віком 6 років", ignoreCase = true) &&
-                            lastLine.contains("вагою 8 ", ignoreCase = true),
-                    "Щось не так з третім кошеням"
-                )
+                assertTrue(lastLine.contains("рудий", true), "Нема імені третього кошення")
+                assertTrue(lastLine.contains("\uD83D\uDC06"), "Нема емоджі третього кошення")
+                assertTrue(lastLine.contains("кошеня №3", true), "Нема номера третього кошення")
+                assertTrue(lastLine.contains("віком 6 років", true), "Некоректний вік третього кошення")
+                assertTrue(lastLine.contains("вагою 8.2 ", true), "Некоректна вага третього кошення")
             }
+
             2 -> {
                 val generator = GenerateL2TaskUseCase()
                 val seed = seed()
                 val task = generator(seed)
                 testCalculate(task, ValidateL2IntTaskUseCase(), seed)
             }
-            else -> assertTrue(false, "Некоректний номер лаболаторної роботи")
+
+            else -> assertTrue(false, "Некоректний номер лабораторної роботи")
         }
     }
 
@@ -51,13 +50,15 @@ internal class MainTest {
         when (BuildConfig.LAB_NUMBER) {
             1 -> {
             }
+
             2 -> {
                 val generator = GenerateL2TaskUseCase()
                 val seed = seed()
                 val task = generator(seed)
                 testCalculate(task, ValidateL2DoubleTaskUseCase(), seed)
             }
-            else -> assertTrue(false, "Некоректний номер лаболаторної роботи")
+
+            else -> assertTrue(false, "Некоректний номер лабораторної роботи")
         }
     }
 
@@ -66,13 +67,15 @@ internal class MainTest {
         when (BuildConfig.LAB_NUMBER) {
             1 -> {
             }
+
             2 -> {
                 val generator = GenerateL2TaskUseCase()
                 val seed = seed()
                 val task = generator(seed)
                 testCalculate(task, ValidateL2StrTaskUseCase(), seed)
             }
-            else -> assertTrue(false, "Некоректний номер лаболаторної роботи")
+
+            else -> assertTrue(false, "Некоректний номер лабораторної роботи")
         }
     }
 
