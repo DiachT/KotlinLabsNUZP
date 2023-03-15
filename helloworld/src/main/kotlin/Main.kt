@@ -1,4 +1,4 @@
-//import me.tetiana.helloworld.BuildConfig
+import me.tetiana.helloworld.BuildConfig
 import com.diacht.ktest.compose.startTestUi
 import com.diacht.ktest.library.BuildConfig
 import kotlin.math.abs
