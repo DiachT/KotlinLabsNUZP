@@ -1,3 +1,4 @@
+
 import com.diacht.ktest.compose.startTestUi
 import me.user.helloworld.BuildConfig
 import kotlin.math.abs
@@ -7,25 +8,19 @@ fun seed(): String = "akutnyak"
 
 fun labNumber() : Int = BuildConfig.LAB_NUMBER
 
-fun iCalculate(): Double {                     //iCaltulate() = tan(min(abs(x0),abs(x1),abs(x2)
-    val x: Array<Int> = arrayOf(84, -17, -123) //Аргументи функції
-    var n : Int = 0
-    while (n < 3) {
-        x[n] = abs(x[n])                       //Модулі Аргументів
-        n++;
-    }
-    val iresult = tan(x.min().toDouble())       //Тангенс мінімального аргументу
+fun iCalculate(): Double {                      //iCaltulate() = tan(min(abs(x0),abs(x1),abs(x2)
+    val x0 : Int = 84; val x1 : Int = -17; val x2 : Int = -123;                     //Аргументи функції
+    val ax0 : Int = abs(x0); val ax1 : Int = abs(x1); val ax2 : Int = abs(x2);      //Модулі Аргументів
+    val mX : Int = minOf(ax0,ax1,ax2)
+    val iresult = tan(mX.toDouble())            //Тангенс мінімального аргументу
     return iresult
 }
 fun dCalculate(): Double{                       //dCaltulate() = (min(abs(x0),abs(x1),abs(x2)^(1/3)
-    val x: Array<Double> = arrayOf(38.94, 74.4, 64.97)
-    var n : Int = 0
-    while (n < 3) {
-        x[n] = abs(x[n])                        //Модулі Аргументів
-        n++;
-    }
+    val x0 : Double = 38.94; val x1 : Double = 74.4; val x2 : Double =64.97;                //Аргументи функції
+    val ax0 : Double = abs(x0); val ax1 : Double = abs(x1); val ax2 : Double = abs(x2);     //Модулі Аргументів
+    val mX : Double = minOf(ax0,ax1,ax2)
     val cbrt : Double = 1.0 / 3.0              //Корінь третього ступеня - число у ступені 1/3
-    val dresult = x.min().pow(cbrt)            //Корінь третього ступеня мінімального аргументу
+    val dresult = mX.pow(cbrt)                 //Корінь третього ступеня мінімального аргументу
     return dresult
 }
 fun strCalculate() : Int{
