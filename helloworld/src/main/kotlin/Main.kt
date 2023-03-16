@@ -1,4 +1,3 @@
-//import me.tetiana.helloworld.BuildConfig
 import com.diacht.ktest.compose.startTestUi
 import com.diacht.ktest.library.BuildConfig
 import kotlin.math.abs
@@ -30,16 +29,16 @@ fun dCalculate(): Double{                       //dCaltulate() = (min(abs(x0),ab
     return dresult
 }
 fun strCalculate() : Int{
-    var x0 :String = "ATGCJ"            //x0 (A,C) сравнить с x1 количество несовпадений
-    var x1 = x0                         //если x0 = C "И" x1 = T, тогда к результату
+    var x0 :String = "ATGCJ"    //Аргументи функції
+    var x1 = x0
     var matches = 0; var i= 0; var ct = 0
     do{
-        if((x0[0] == x1[i])||(x0[3] == x1[i])) matches++
-        if(x0[3] == x1[i] || (x0[1] == x1[i])) ct += 2
+        if((x0[0] == x1[i])||(x0[3] == x1[i])) matches++ //Якщо символи А та С у рядку х0 співпадає з символами у рядку х1
+        if(x0[3] == x1[i] || (x0[1] == x1[i])) ct += 2   //Якщо символи С та Т у рядку х0 співпадає з символами у рядку х1
         i++
     }
     while (i < x1.length)
-    val strresult = x0.length + ct - matches
+    val strresult = x0.length + ct - matches //Кількість неспівпадань дорівнює: довжина рядку плюс співпадання символів С та Т, мінус співпадання символів А та С
     return strresult
 }
 fun prints(){
