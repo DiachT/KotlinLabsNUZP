@@ -1,5 +1,5 @@
 import com.diacht.ktest.compose.startTestUi
-import com.diacht.ktest.library.BuildConfig
+import me.user.helloworld.BuildConfig
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.tan
@@ -24,8 +24,8 @@ fun dCalculate(): Double{                       //dCaltulate() = (min(abs(x0),ab
         x[n] = abs(x[n])                        //Модулі Аргументів
         n++;
     }
-    val sqrt3 : Double = 1.0 / 3.0              //Корінь третього ступеня
-    val dresult = x.min().pow(sqrt3)                //Розрахунок
+    val cbrt : Double = 1.0 / 3.0              //Корінь третього ступеня - число у ступені 1/3
+    val dresult = x.min().pow(cbrt)            //Корінь третього ступеня мінімального аргументу
     return dresult
 }
 fun strCalculate() : Int{
@@ -41,15 +41,11 @@ fun strCalculate() : Int{
     val strresult = x0.length + ct - matches //Кількість неспівпадань дорівнює: довжина рядку плюс співпадання символів С та Т, мінус співпадання символів А та С
     return strresult
 }
-fun prints(){
-    println("Лабораторна робота №${labNumber()} користувача ${seed()} \n" +
-            "Результат першої функції: ${iCalculate()} \n" +
-            "Результат другої функції: ${dCalculate()} \n" +
-            "Результат третьої функції: ${strCalculate()}")
-}
-
 fun main(args: Array<String>) {
-    prints()
+    println("Лабораторна робота №${labNumber()} користувача ${seed()}")
+    println("Результат першої функції: ${iCalculate()}")
+    println("Результат другої функції: ${dCalculate()}")
+    println("Результат третьої функції: ${strCalculate()}")
     startTestUi(seed(), labNumber())
 }
 
