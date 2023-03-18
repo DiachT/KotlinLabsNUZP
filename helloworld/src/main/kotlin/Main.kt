@@ -19,7 +19,7 @@ x3: Int = -5) : Double {
 }
 fun strCalculate(
     x1:String = "JTTCG",
-    x2:String = "ATGCJ") {
+    x2:String = "ATGCJ"): Int {
     var result : Int = 0
     var x = 0
     while (x < 2) {
@@ -33,14 +33,14 @@ fun strCalculate(
         }
         ++x
     }
-    return println(result)
+    return result
 }
 fun dCalculate(x0:Double = -48.76,
                 x1:Double = -89.7,
                 x2:Double = -74.82,
                 x3:Double = 144.0,
-                x4:Double = 25.84) {
-    return println(tan(x0*x1*x2*x3*x4))
+                x4:Double = 25.84):Double {
+    return tan(x0*x1*x2*x3*x4)
 }
 
  fun main(args: Array<String>) {
