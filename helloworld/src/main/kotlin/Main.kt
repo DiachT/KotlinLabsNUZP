@@ -7,36 +7,33 @@ fun seed(): String = "akutnyak"
 
 fun labNumber() : Int = BuildConfig.LAB_NUMBER
 
-fun iCalculate(x0:Int, x1:Int, x2:Int): Double {                      //iCaltulate() = tan(min(abs(x0),abs(x1),abs(x2)
-    val ax0 : Int = abs(x0); val ax1 : Int = abs(x1); val ax2 : Int = abs(x2);      //Модулі Аргументів
-    val mX : Int = minOf(ax0,ax1,ax2)
-    val iresult = tan(mX.toDouble())            //Тангенс мінімального аргументу
-    return iresult
-}
-fun dCalculate(x0:Double, x1:Double, x2:Double): Double{                       //dCaltulate() = (min(abs(x0),abs(x1),abs(x2)^(1/3)
-    val ax0 : Double = abs(x0); val ax1 : Double = abs(x1); val ax2 : Double = abs(x2);     //Модулі Аргументів
-    val mX : Double = minOf(ax0,ax1,ax2)
-    val cbrt : Double = 1.0 / 3.0              //Корінь третього ступеня - число у ступені 1/3
-    val dresult = mX.pow(cbrt)                 //Корінь третього ступеня мінімального аргументу
-    return dresult
-}
-fun strCalculate(x0:String) : Int{
-    var x1 = x0
-    var matches = 0; var i= 0; var ct = 0
-    do{
-        if((x0[0] == x1[i])||(x0[3] == x1[i])) matches++ //Якщо символи А та С у рядку х0 співпадає з символами у рядку х1
-        if(x0[3] == x1[i] || (x0[1] == x1[i])) ct += 2   //Якщо символи С та Т у рядку х0 співпадає з символами у рядку х1
-        i++
+fun iCalculate(): Double = tan(minOf(abs(84),abs(-17),abs(123)).toDouble())
+fun dCalculate(): Double = minOf(abs(38.94),abs(74.4),abs(64.97)).pow(1.0/3.0)
+fun compareEvenChars(string1: String, string2: String): Int {
+    var mismatches = 0
+    if (string1.length != string2.length) throw Exception("String must be equal")
+    else {
+        for (i in string1.indices step 2) {
+            val char1 = string1[i]
+            val char2 = string2[i]
+            if (char1 != char2) {
+                if(string1[i] != 'A' && string1[i] != 'C') mismatches++
+                if (string1[i] != 'C' && string1[i] != 'T') mismatches += 2
+            }
+        }
     }
-    while (i < x1.length)
-    val strresult = x0.length + ct - matches //Кількість неспівпадань дорівнює: довжина рядку плюс співпадання символів С та Т, мінус співпадання символів А та С
-    return strresult
+    return mismatches
 }
+fun strCalculate(
+    x0: String = "ATGCJ",
+    x1: String = "AAAAA"
+): Int = compareEvenChars(x0, x1)
+
 fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-    println("Результат першої функції: ${iCalculate(84,-17,-123)}")
-    println("Результат другої функції: ${dCalculate(38.94,74.4,64.97)}")
-    println("Результат третьої функції: ${strCalculate("ATGCJ")}")
+    println("Результат першої функції: ${iCalculate()}")
+    println("Результат другої функції: ${dCalculate()}")
+    println("Результат третьої функції: ${strCalculate()}")
     startTestUi(seed(), labNumber())
 }
 
