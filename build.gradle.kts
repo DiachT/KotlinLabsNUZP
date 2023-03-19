@@ -11,7 +11,7 @@ subprojects {
     apply(plugin = "com.github.gmazzo.buildconfig")
 }
 
-val labNumber = 1
+val labNumber = 2
 
 allprojects {
     buildConfig {
@@ -55,6 +55,10 @@ tasks.withType<KotlinCompile> {
 
 application {
     mainClass.set("MainKt")
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 tasks.withType<Test> {

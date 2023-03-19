@@ -1,21 +1,44 @@
+import kotlin.math.*
+import com.diacht.ktest.compose.startTestUi
+import com.diacht.ktest.library.BuildConfig
+
+
 fun seed(): String = "Kovaal-mari"
 
- fun labNumber() : Int = 1
 
- fun main(args: Array<String>) {
-     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
+fun labNumber() : Int = BuildConfig.LAB_NUMBER
 
-     var kitty = "Васько"
-     kitty += " \uD83D\uDC31"
-     val age = 7
-     println("Кошеня №1 - $kitty віком $age років")
 
-     val catName: String = "Мурзик \uD83D\uDC08"
-     val weight: Float = 3.5f
-     println("Кошеня №2 - $catName з вагою $weight кг")
+fun main(args: Array<String>) {
+    println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-     val kittyName = "Рудий \uD83D\uDC06"
-     val ageKitty = 6
-     val weightKitty = 8.2
-     println("Кошеня №3 - $kittyName віком $ageKitty років і вагою $weightKitty кг")
+
+    fun iCalculate(x0: Int = 100, x1: Int = 28, x2: Int = 127, x3: Int = -37): Double {
+        return sqrt(x0.toDouble().pow(2) + x1.toDouble().pow(2) + x2.toDouble().pow(2) + x3.toDouble().pow(2)) }
+
+
+    fun dCalculate(x0: Double = 47.3, x1: Double = 88.58, x2: Double = 56.35, x3: Double = -11.07): Double {
+        return tanh(minOf(abs(x0), abs(x1), abs(x2), abs(x3)))
     }
+
+    fun strCalculate(x0: String = "ATGJJATG", x1: String = "ATGCCATG"): Int {
+        require(x0.length == x1.length && x0.length %2 == 0 ) { "x0 and x1 must have the same length" }
+        val halfLength = x0.length / 2
+        var count = 0
+        for (i in x0.indices) {
+            if (x0[i] != x1[i]) {
+                if (i < halfLength) {
+                    count += 2
+                } else {
+                    count += 1
+                }
+            }
+        }
+        return count
+    }
+
+    println(dCalculate())
+    println(iCalculate())
+    println(strCalculate())
+    startTestUi(seed(), labNumber())
+}
