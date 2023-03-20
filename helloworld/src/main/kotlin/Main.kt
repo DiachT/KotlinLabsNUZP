@@ -21,7 +21,7 @@ fun strCalculate(x0: String = "ATGJJATG", x1: String = "ATGCCATG"): Int {
     require(x0.length == x1.length && x0.length %2 == 0 ) { "x0 and x1 must have the same length" }
     val halfLength = x0.length / 2
     var count = 0
-    for (i in x0.indices) {
+    for (i in x0.indices step 2) {
         if (x0[i] != x1[i]) {
             if (i < halfLength) {
                 count += 2
