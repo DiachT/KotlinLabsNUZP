@@ -7,32 +7,26 @@ fun seed(): String = "akutnyak"
 
 fun labNumber() : Int = BuildConfig.LAB_NUMBER
 
-fun minInt(x0: Int, x1: Int, x2: Int): Int {
-    return minOf(x0, x1, x2)
-}
-fun minDouble(x0: Double, x1: Double, x2: Double): Double {
-    return minOf(x0, x1, x2)
-}
-fun iCalculate(): Double = tan(minInt(x0 = abs(84),x1 = abs(-17),x2 = abs(123)).toDouble())
-fun dCalculate(): Double = minDouble(x0 = abs(38.94),x1 = abs(74.4),x2 = abs(64.97)).pow(1.0/3.0)
+fun iCalculate(x0  :Int = 84, x1 : Int = -17, x2 : Int = 123): Double = tan(minOf(abs(x0),abs(x1), abs(x2)).toDouble())
+fun dCalculate(x0 : Double = 38.94, x1 : Double = 74.4, x2 : Double = 64.97): Double = minOf(abs(x0),abs(x1), abs(x2)).pow(1.0/3.0)
 fun compareEvenChars(string1: String, string2: String): Int {
     var mismatches = 0
     if (string1.length != string2.length) throw Exception("String must be equal")
     else {
-        for (i in string1.indices step 2) {
+        for (i in string1.indices) {
             val char1 = string1[i]
             val char2 = string2[i]
-            if (char1 != char2) {
-                if(string1[i] == 'A' && string1[i] == 'C') mismatches++
-                if (string1[i] == 'C' && string1[i] == 'T') mismatches += 2
+            if (char1 != char2){
+                if (char1 == 'C' && char2 == 'T') mismatches += 2
+                else if (char1 == 'A' || char1 =='C') mismatches++
             }
         }
+        return mismatches
     }
-    return mismatches
 }
 fun strCalculate(
-    x0: String = "ATGCJ",
-    x1: String = "AAAAA"
+    x0: String = "ATCGCJ",
+    x1: String = "AAAATA"
 ): Int = compareEvenChars(x0, x1)
 
 fun main(args: Array<String>) {
