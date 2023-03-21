@@ -5,6 +5,7 @@ import kotlin.math.ln
 import kotlin.math.max
 import kotlin.math.tan
 
+
 fun main(args: Array<String>) {
     val result1 = iCalculate()
     println(result1)
