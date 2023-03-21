@@ -5,27 +5,22 @@ import kotlin.math.ln
 import kotlin.math.max
 import kotlin.math.tan
 
-fun seed(): String = "Nikarionec"
-
-
-fun labNumber() : Int = BuildConfig.LAB_NUMBER
-
-
 fun main(args: Array<String>) {
-    println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-
-    startTestUi(seed(), labNumber())
+    val result1 = iCalculate()
+    println(result1)
+    val result2 = dCalculate()
+    println(result2)
+    val result3 = strCalculate()
+    println(result3)
     }
-fun iCalculate(x0: Int = 41, x1: Int = -125, x2: Int = 49, x3: Int = 10, x4: Int = 67) {
+fun iCalculate(x0: Int = 41, x1: Int = -125, x2: Int = 49, x3: Int = 10, x4: Int = 67): Double {
     val max = maxOf(x0, x1, x2, x3, x4)
-    var result1 = ln(max.toDouble())
-    println("Результат = $result1")
+    return ln(max.toDouble())
 }
-fun dCalculate(x0: Double = 65.72, x1: Double = -11.22, x2: Double = -102.12, x3: Double =-12.96, x4: Double = -47.38) {
+fun dCalculate(x0: Double = 65.72, x1: Double = -11.22, x2: Double = -102.12, x3: Double =-12.96, x4: Double = -47.38): Double {
 
     val arg = abs(x0) + abs(x1) + abs(x2) + abs(x3) + abs(x4)
-    var result2 = tan(arg)
-    println("Результат = $result2")
+    return tan(arg)
 }
 
 fun strCalculate(x0: String = "A G T C J", x1: String = "G T C J A"): Int {
@@ -36,5 +31,4 @@ fun strCalculate(x0: String = "A G T C J", x1: String = "G T C J A"): Int {
         }
     }
     return count
-    println(count)
 }
