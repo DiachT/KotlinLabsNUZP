@@ -4,15 +4,22 @@ import kotlin.math.abs
 import kotlin.math.ln
 import kotlin.math.max
 import kotlin.math.tan
+fun seed(): String = "user"
 
+
+fun labNumber() : Int = BuildConfig.LAB_NUMBER
 
 fun main(args: Array<String>) {
+    println("Лабораторна робота №${labNumber()} користувача ${seed()}")
+    
     val result1 = iCalculate()
     println(result1)
     val result2 = dCalculate()
     println(result2)
     val result3 = strCalculate()
     println(result3)
+
+    startTestUi(seed(), labNumber())
     }
 fun iCalculate(x0: Int = 41, x1: Int = -125, x2: Int = 49, x3: Int = 10, x4: Int = 67): Double {
     val max = maxOf(x0, x1, x2, x3, x4)
