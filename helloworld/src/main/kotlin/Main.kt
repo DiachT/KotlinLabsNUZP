@@ -9,10 +9,10 @@ fun labNumber(): Int = BuildConfig.LAB_NUMBER
 
 fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-    println("Result of the first function: ${iCalculate()}")
     println("Result of the second function: ${dCalculate()}")
     println("Result of the third function: ${strCalculate()}")
     startTestUi(seed(), labNumber())
+    println("Result of the first function: ${iCalculate()}")
 }
 
 fun strCalculate(
