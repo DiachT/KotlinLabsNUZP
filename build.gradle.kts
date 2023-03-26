@@ -11,7 +11,7 @@ subprojects {
     apply(plugin = "com.github.gmazzo.buildconfig")
 }
 
-val labNumber = 1
+val labNumber = 3
 
 allprojects {
     buildConfig {
