@@ -4,7 +4,7 @@ import kotlin.math.abs
 import kotlin.math.ln
 import kotlin.math.max
 import kotlin.math.tan
-fun seed(): String = "user"
+fun seed(): String = "Nikarionec"
 
 
 fun labNumber() : Int = BuildConfig.LAB_NUMBER
