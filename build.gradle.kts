@@ -33,7 +33,9 @@ dependencies {
     if (labNumber > 1) {
         implementation(project(":helloworld"))
     }
-    implementation("com.diacht.ktest:library:1.0.1")
+    implementation(project(":caffe"))
+    implementation(project(":juicefactory"))
+    implementation("com.diacht.ktest:library:1.0.6")
     testImplementation(kotlin("test"))
 }
 
@@ -42,6 +44,24 @@ sourceSets {
         named("main") {
             java.srcDir("./helloworld/src/main/kotlin/")
         }
+    }
+
+    test {
+        kotlin {
+            srcDir(
+                when (labNumber) {
+                    1 -> "src/lab1/"
+                    2 -> "src/lab2/"
+                    3 -> "src/lab3/"
+                    4 -> "src/lab4/"
+                    5 -> "src/lab5/"
+                    else -> throw IllegalStateException("Wrong Lab number $labNumber")
+                }
+            )
+        }
+        compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+        runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
+
     }
 }
 
