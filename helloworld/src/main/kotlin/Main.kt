@@ -15,8 +15,9 @@ fun iCalculate(x0: Int = -79, x1: Int = -54, x2: Int = 117, x3: Int = -7): Doubl
 fun dCalculate(x0: Double = 1.12, x1: Double = 1.15, x2: Double = -7.79, x3: Double = 31.0, x4: Double = 33.6): Double {
     return cos(min(min(min(min(x0, x1), x2), x3), x4))
 }
-
-fun strCalculate(x0: String, x1: String): Int {
+var template1 = "ACCGTC"
+var template2 = "ACCGTG"
+fun strCalculate(x0: String = template1, x1: String = template2): Int {
     var count = 0
     if (x0.length % 2 == 0 && x1.length % 2 == 0) {
         for ((e, x) in x0.withIndex()) {
@@ -28,12 +29,13 @@ fun strCalculate(x0: String, x1: String): Int {
             }
         }
     }
+    println(count)
     return count
 }
 fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
     iCalculate()
     dCalculate()
-    strCalculate("ACCGTC","ACCGTG")
+    strCalculate()
     startTestUi(seed(), labNumber())
 }
