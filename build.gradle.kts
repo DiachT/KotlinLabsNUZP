@@ -1,8 +1,7 @@
-import org.gradle.api.tasks.testing.logging.TestLogging
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.0"
+    kotlin("jvm") version Versions.kotlin
     id("com.github.gmazzo.buildconfig") version "3.1.0"
     application
 }
@@ -35,7 +34,7 @@ dependencies {
     }
     implementation(project(":caffe"))
     implementation(project(":juicefactory"))
-    implementation("com.diacht.ktest:library:1.0.6")
+    implementation(Versions.library)
     testImplementation(kotlin("test"))
 }
 
@@ -87,4 +86,8 @@ tasks.withType<Test> {
         events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED)
         events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED)
     }
+}
+
+kotlin {
+    jvmToolchain(Versions.jvmLevel)
 }
