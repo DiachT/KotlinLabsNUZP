@@ -1,8 +1,7 @@
-import org.gradle.api.tasks.testing.logging.TestLogging
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.8.0"
+    kotlin("jvm") version Versions.kotlin
     id("com.github.gmazzo.buildconfig") version "3.1.0"
     application
 }
@@ -33,7 +32,9 @@ dependencies {
     if (labNumber > 1) {
         implementation(project(":helloworld"))
     }
-    implementation("com.diacht.ktest:library:1.0.1")
+    implementation(project(":caffe"))
+    implementation(project(":juicefactory"))
+    implementation(Versions.library)
     testImplementation(kotlin("test"))
 }
 
@@ -42,6 +43,24 @@ sourceSets {
         named("main") {
             java.srcDir("./helloworld/src/main/kotlin/")
         }
+    }
+
+    test {
+        kotlin {
+            srcDir(
+                when (labNumber) {
+                    1 -> "src/lab1/"
+                    2 -> "src/lab2/"
+                    3 -> "src/lab3/"
+                    4 -> "src/lab4/"
+                    5 -> "src/lab5/"
+                    else -> throw IllegalStateException("Wrong Lab number $labNumber")
+                }
+            )
+        }
+        compileClasspath += sourceSets["main"].output + configurations["testRuntimeClasspath"]
+        runtimeClasspath += output + compileClasspath + sourceSets["test"].runtimeClasspath
+
     }
 }
 
@@ -71,4 +90,8 @@ tasks.withType<Test> {
         events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED)
         events.add(org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED)
     }
+}
+
+kotlin {
+    jvmToolchain(Versions.jvmLevel)
 }
