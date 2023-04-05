@@ -31,7 +31,7 @@ fun dCalculate(x0: Double = 65.72, x1: Double = -11.22, x2: Double = -102.12, x3
     return tan(arg)
 }
 
-fun strCalculate(x0: String = "A G T C J", x1: String = "G T J C A"): Int {
+fun strCalculate(x0: String = "A G T C J", x1: String = "G A T J C"): Int {
     var mismatches = 0
     val ignoredChars = setOf('J', ' ')
 
@@ -41,9 +41,9 @@ fun strCalculate(x0: String = "A G T C J", x1: String = "G T J C A"): Int {
             continue  // символы совпадают, переходим к следующей итерации цикла
         }
         if (x0[i] == 'T' && x1[i] in setOf('A', 'C', 'G') ||
-            x0[i] == 'C' && x1[i] in setOf('A', 'G', 'T') ||
+            x0[i] == 'C' && x1[i] in setOf('A', 'G', 'T', 'J') ||
             x1[i] == 'T' && x0[i] in setOf('A', 'C', 'G') ||
-            x1[i] == 'C' && x0[i] in setOf('A', 'G', 'T')) {
+            x1[i] == 'C' && x0[i] in setOf('A', 'G', 'T', 'J')) {
             mismatches++  // символы не совпадают и не являются символами J или пробелами
         }
     }
