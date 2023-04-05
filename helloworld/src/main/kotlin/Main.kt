@@ -31,18 +31,22 @@ fun dCalculate(x0: Double = 65.72, x1: Double = -11.22, x2: Double = -102.12, x3
     return tan(arg)
 }
 
-fun strCalculate(x0: String = "A G T C J", x1: String = "A G C T J"): Int {
-    var mismatchCount = 0
+fun strCalculate(x0: String = "A G T C J", x1: String = "G T J C A"): Int {
+    var mismatches = 0
+    val ignoredChars = setOf('J', ' ')
+
+    // Сравниваем символы T и C в обеих строках
     for (i in x0.indices) {
-        val charX0 = x0[i]
-        val charX1 = x1[i]
-        if ((charX0 == 'T' || charX0 == 'C') && (charX1 == 'T' || charX1 == 'C')) {
-            if (charX0 != charX1) {
-                mismatchCount++
-            }
-        } else if (charX0 != charX1 && charX0 != 'J' && charX1 != 'J') {
-            mismatchCount =+ 0
+        if (x0[i] == x1[i] && x0[i] !in ignoredChars && x0[i] in setOf('T', 'C')) {
+            continue  // символы совпадают, переходим к следующей итерации цикла
+        }
+        if (x0[i] == 'T' && x1[i] in setOf('A', 'C', 'G') ||
+            x0[i] == 'C' && x1[i] in setOf('A', 'G', 'T') ||
+            x1[i] == 'T' && x0[i] in setOf('A', 'C', 'G') ||
+            x1[i] == 'C' && x0[i] in setOf('A', 'G', 'T')) {
+            mismatches++  // символы не совпадают и не являются символами J или пробелами
         }
     }
-    return mismatchCount
+
+    return mismatches
 }
