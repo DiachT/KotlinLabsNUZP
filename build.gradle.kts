@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version Versions.kotlin
     id("com.github.gmazzo.buildconfig") version "3.1.0"
+
     application
 }
 
