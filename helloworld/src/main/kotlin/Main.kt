@@ -1,18 +1,43 @@
+import com.diacht.ktest.compose.startTestUi
+import com.diacht.ktest.library.BuildConfig
+import kotlin.math.*
+
 fun seed(): String = "picardKotlin"
 
-fun labNumber() : Int = 1
+fun labNumber() : Int = BuildConfig.LAB_NUMBER
+
+fun iCalculate(x0 : Int = 27, x1 : Int = 98, x2 : Int = 53) : Double{
+    var result : Double = sqrt((x0 * x1 * x2).toDouble()) // Розрахунок по формулі
+    return result // Повернення результату
+}
+
+fun dCalculate(x0 : Double = 104.55, x1 : Double = -182.56, x2 : Double = -30.3, x3 : Double = 0.51) : Double{
+    var result : Double = tanh(maxOf(abs(x0), abs(x1), abs(x2), abs(x3))) // Розрахунок по формулі
+    return result // Повернення результату
+}
+
+fun strCalculate(x0 : String = "AGTCJA", x1 : String = "AJCTGJ") : Int{
+    var result : Int = 0
+
+    for (i in x0.indices) { // Цикл для проходження по рядку
+        if(x0[i] == 'T' || x0[i] == 'C'){ // Умова за якої починається порівняння з другою строкою
+            if (x0[i] != x1[i]) { // Порівняння символу першої строки з відповідним символом другої
+                if (i < x0.length / 2) { // Перевірка на місцезнаходження елемента в першій або другій частині рядка
+                    result += 2
+                } else {
+                    result++
+                }
+            }
+        }
+    }
+    return result // Повернення результату
+}
 
 fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-    var kitty = "Васько"
-    kitty += " \uD83D\uDC31"
-    val age = 7
-    println("Кошеня №1 - $kitty віком $age років")
-    val catName: String = "Мурзик \uD83D\uDC08"
-    val weight: Float = 3.5f
-    println("Кошеня №2 - $catName з вагою $weight кг")
-    var catName2: String = "Рудий \uD83D\uDC06"
-    val age2 = 6
-    val weight2: Float = 8.2f
-    println("Кошеня №3 - $catName2 віком з $age2 та вагою $weight2 кг")
+
+    iCalculate()
+    dCalculate()
+    strCalculate()
+    startTestUi(seed(), labNumber())
 }
