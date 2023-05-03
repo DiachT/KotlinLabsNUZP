@@ -11,14 +11,17 @@ class JuiceFactory(private val storage: FreshJuiceStorage): FactoryItf() {
     }
 
     override fun order(order: List<Pair<ProductType, Int>>): List<Product> {
-        val readyOrders = mutableListOf<Product>()
-        for ((type, amount) in order) {
-            val availableProducts = storage.products.filter { it.type == type }
-//            val availableAmount = min(amount, availableProducts.size)
-            readyOrders.addAll(availableProducts.take(availableProducts.size))
+        val products = mutableListOf<Product>()
+        for (item in order) {
+            val (productType, count) = item
+            val availableCount = storage.checkProductCount(productType)
+            if (availableCount < count) {
+                throw IllegalStateException("Not enough products in storage")
+            }
+            storage.getProduct(productType, count)
         }
-        return readyOrders
+        return products
     }
 
-    override fun getLeftovers(): List<Product> = storage.products
+    override fun getLeftovers(): List<Product> = storage.getLeftovers()
 }

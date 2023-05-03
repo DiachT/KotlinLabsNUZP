@@ -5,25 +5,29 @@ import com.diacht.ktest.Storage
 class FreshJuiceStorage: Storage {
     internal val products = mutableListOf<Product>()
     override fun addProduct(product: Product) {
-        for (item in 0 until product.count) products.add(product)
+        products.add(product)
     }
+
     override fun checkProductCount(type: ProductType): Int {
-        products.forEach { if (it.type == type) return it.count }
-        return 0
+        return products.count { it.type == type }
     }
 
     override fun getProduct(productType: ProductType, count: Int): Product {
-        products.forEach {
-            if (it.type == productType) {
-                for (item in 0..count) products.remove(it)
-                return it
-            }
+        val availableProducts = products.filter { it.type == productType }
+        if (availableProducts.size < count) {
+            throw IllegalStateException("Not enough products in storage")
         }
-        throw IllegalStateException("Impossible to take the product out of the list")
+        val takenProducts = availableProducts.subList(0, count)
+        products.removeAll(takenProducts)
+        return takenProducts.first()
     }
 
-    override fun getLeftovers(): List<Product> = products
+    override fun getLeftovers(): List<Product> {
+        return products.toList()
+    }
 
-    override fun resetSimulation() { products.clear() }
+    override fun resetSimulation() {
+        products.clear()
+    }
 
 }
