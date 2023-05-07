@@ -1,3 +1,3 @@
 import com.diacht.ktest.Machine
 
-class JuicePress(storage: FreshJuiceStorage): Machine(storage)
+class JuicePress(private val storage: FreshJuiceStorage): Machine(storage)

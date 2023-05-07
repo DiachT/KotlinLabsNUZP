@@ -7,11 +7,8 @@ fun seed(): String = "stressed-owl"
 
 fun labNumber(): Int = BuildConfig.LAB_NUMBER
 
-fun main(args: Array<String>) {
+fun main() {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-    val storage = FreshJuiceStorage()
-    storage.addProduct(Product(ORANGE, 4))
-    println("Size: ${storage.products.size}")
     startTestUi(seed(), labNumber())
 }
 
