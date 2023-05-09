@@ -20,6 +20,7 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(project(":juicefactory"))
     testImplementation(kotlin("test"))
+    implementation(Versions.library)
 }
 
 tasks.test {
