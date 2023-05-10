@@ -1,3 +1,4 @@
+import com.diacht.ktest.*
 import com.diacht.ktest.compose.startTestUi
 import com.diacht.ktest.library.BuildConfig
 import kotlin.math.*
@@ -33,11 +34,158 @@ fun strCalculate(x0 : String = "AGTCJA", x1 : String = "AJCTGJ") : Int{
     return result // Повернення результату
 }
 
+class localStorage : Storage{
+    var productStorage : List<Product> = mutableListOf<Product>();
+
+    private fun haveProduct(type: ProductType) : Boolean{
+        for (product in productStorage){
+            if (product.type == type){
+                return true;
+            };
+        }
+        return false;
+    }
+
+    private fun indexProduct(type: ProductType) : Int {
+        for ((index, product) in productStorage.withIndex()){
+            if (product.type == type){
+                return index;
+            };
+        }
+        return 0;
+    }
+    override fun addProduct(product: Product) {
+        val haveProduct : Boolean = haveProduct(product.type);
+        if(haveProduct) {
+            productStorage[indexProduct(product.type)].count += product.count; // Якщо продукт вже існує додаємо йому кількість
+        } else{
+            productStorage += product; // Якщо продукту це не існує просто пушимо його в сховище
+        }
+    }
+
+    override fun checkProductCount(type: ProductType): Int {
+        var result : Int = 0;
+        val haveProduct : Boolean = haveProduct(type) && productStorage[indexProduct(type)].count != 0; // Пошук продукту в сховищі
+        if (haveProduct) {
+            result = productStorage[indexProduct(type)].count; // Запис к-сті продукту в сховищі, якщо знайшли
+        }
+        return result;
+    }
+
+    override fun getProduct(productType: ProductType, count: Int): Product {
+        val haveProduct : Boolean = haveProduct(productType) && productStorage[indexProduct(productType)].count != 0; // Пошук продукту в сховищі
+        var getedProduct = Product(NONE, 0); // Повертаємий продукт продукт(В початковому значенні NONE, якщо умова не проходить, верне пустотий об'єкт.)
+        if (haveProduct) {
+            getedProduct = Product(productType, count);
+            productStorage[indexProduct(productType)].count -= count;
+        } // Видача необхідної к-сті продукту
+        return getedProduct;
+    }
+
+    override fun getLeftovers(): List<Product> {
+        return productStorage // Видаємо список всіх продуктів на збереженні
+    }
+
+    override fun resetSimulation() {
+        productStorage = mutableListOf<Product>(); //Перезапуск симуляції
+    }
+}
+private val productsStorage = localStorage();
+private val drinksStorage = localStorage();
+private val orderedStats = localStorage();
+
+class localMachine(storage: localStorage) : Machine(storage)
+private val JuicePress = localMachine(productsStorage);
+
+class localFactory(private val productsStorage: localStorage, private val JuicePress : localMachine, private val orderedStats: localStorage) : FactoryItf(){
+
+    override fun resetSimulation() {
+        productsStorage.resetSimulation() // Видаємо список всіх продуктів на збереженні
+        orderedStats.resetSimulation() // Видаляємо статистику замовлень
+    }
+
+    override fun loadProducts(productsFromSupplier: List<Product>) {
+        for (product in productsFromSupplier){
+            productsStorage.addProduct(product) // Получение продуктов
+        }
+    }
+
+    override fun order(order: List<Pair<ProductType, Int>>): List<Product> {
+        var ordered : List<Product> = mutableListOf<Product>();
+        for (juice in order){
+            var receipt : Receipt? = drinkList[juice.first]
+            if (receipt != null) {
+                JuicePress.setReceipt(receipt);
+                ordered += Product(juice.first, juice.second);
+                orderedStats.addProduct(Product(juice.first, juice.second));
+            }
+        }
+        return ordered;
+    }
+
+    override fun getLeftovers(): List<Product> {
+        return productsStorage.getLeftovers()
+    }
+
+    override fun getEarnings(): Int {
+        return super.getEarnings()
+    }
+
+    override fun getOrderStatistics(): List<Product> {
+        var statistic = orderedStats.getLeftovers();
+        if (statistic.size > 0)
+            return statistic;
+        else
+            return super.getOrderStatistics()
+    }
+
+    override fun getPopularDrink(): Product {
+        var statistic = orderedStats.getLeftovers();
+        var topDrink : Product = Product(NONE, 0);
+        if (statistic.size > 0){
+            for (product in statistic) {
+                if (product.count > topDrink.count)
+                    topDrink = product;
+            }
+        }
+        return topDrink;
+    }
+
+    override fun getUnpopularDrink(): Product {
+        var statistic = orderedStats.getLeftovers();
+        var worstDrink : Product = Product(NONE, 0);
+        if (statistic.size < 0){
+            for (product in statistic) {
+                if (product.count > worstDrink.count)
+                    worstDrink = product;
+            }
+        }
+        return worstDrink;
+    }
+
+    val drinkList = mapOf<ProductType, Receipt>(
+        ORANGE_JUICE to OrangeJuice,
+        APPLE_JUICE to AppleJuice,
+        APPLE_CARROT_JUICE to AppleCarrotJuice,
+        TOMATO_CARROT_JUICE to TomatoCarrotJuice,
+        TOMATO_JUICE to TomatoJuice
+    )
+}
+
+val mainFactory = localFactory(productsStorage, JuicePress, orderedStats);
+
+fun getSimulationObject(myFactory : localFactory = mainFactory): localFactory {
+    return myFactory;
+}
+
 fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-    iCalculate()
-    dCalculate()
-    strCalculate()
+//    iCalculate() //2.1
+//    dCalculate() //2.2
+//    strCalculate() //2.3
+
+    getSimulationObject();
+
     startTestUi(seed(), labNumber())
 }
