@@ -4,9 +4,16 @@ import com.diacht.ktest.Storage
 
 class FreshJuiceStorage: Storage {
     internal val productsStorage = mutableListOf<Product>()
-    override fun addProduct(product: Product) { productsStorage.add(product) }
+    // to add a list of orders
+    override fun addProduct(product: Product) {
+    // TODO: To check if product is in a storage
+        productsStorage.add(product)
+    }
 
-    override fun checkProductCount(type: ProductType): Int = productsStorage.count { it.type == type }
+    override fun checkProductCount(type: ProductType): Int {
+        // TODO: If there are no products, return 0
+        return productsStorage.count { it.type == type }
+    }
 
     override fun getProduct(productType: ProductType, count: Int): Product {
         val filteredProducts = productsStorage.filter { it.type == productType }
@@ -20,7 +27,7 @@ class FreshJuiceStorage: Storage {
         return Product(productType, count)
     }
 
-    override fun getLeftovers(): List<Product> = productsStorage.toList()
+    override fun getLeftovers(): List<Product> = productsStorage
 
     override fun resetSimulation() { productsStorage.clear() }
 }
