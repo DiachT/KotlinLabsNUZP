@@ -1,8 +1,6 @@
 import com.diacht.ktest.compose.startTestUi
 import com.diacht.ktest.library.BuildConfig
-import kotlin.math.cos
-import kotlin.math.min
-import kotlin.math.tanh
+import kotlin.math.*
 
 fun seed(): String = "AntonNikitiuk1"
 
@@ -13,23 +11,25 @@ fun iCalculate(x0: Int = -79, x1: Int = -54, x2: Int = 117, x3: Int = -7): Doubl
 }
 
 fun dCalculate(x0: Double = 1.12, x1: Double = 1.15, x2: Double = -7.79, x3: Double = 31.0, x4: Double = 33.6): Double {
-    return cos(min(min(min(min(x0, x1), x2), x3), x4))
+    return cos(minOf(abs(x0),abs(x1),abs(x2),abs(x3),abs(x4))) //Повертає мінімальне число з 5 приведених до модулю за допомогою abs
 }
-var template1 = "ACCGTC"
-var template2 = "ACCGTG"
+
+var template1 = "ACCGTT"
+var template2 = "ACGCTA"
 fun strCalculate(x0: String = template1, x1: String = template2): Int {
     var count = 0
-    if (x0.length % 2 == 0 && x1.length % 2 == 0) {
-        for ((e, x) in x0.withIndex()) {
-            if ((x == 'T' || x == 'C') && x == x1.get(e)) {
-                count += 1
-            }
-            if (x == 'C' && x1.get(e) == 'G') {
-                count += 2
+    for (symbol in x0.indices) {
+        if (x0[symbol] == 'T' || x0[symbol] == 'C') {
+            if(x0[symbol] != x1[symbol]){
+                if(x0[symbol] == 'C' || x1[symbol] == 'C' || x1[symbol] == 'G') {
+                    count += 2;
+                }
+                else {
+                    count += 1;
+                }
             }
         }
     }
-    println(count)
     return count
 }
 fun main(args: Array<String>) {
