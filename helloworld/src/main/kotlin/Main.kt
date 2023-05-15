@@ -14,14 +14,14 @@ fun dCalculate(x0: Double = 1.12, x1: Double = 1.15, x2: Double = -7.79, x3: Dou
     return cos(minOf(abs(x0),abs(x1),abs(x2),abs(x3),abs(x4))) //Повертає мінімальне число з 5 приведених до модулю за допомогою abs
 }
 
-var template1 = "ACCGTT"
-var template2 = "ACGCTA"
+var template1 = "AGGACCCCTC"
+var template2 = "AGGACGCCTJ"
 fun strCalculate(x0: String = template1, x1: String = template2): Int {
     var count = 0
     for (symbol in x0.indices) {
         if (x0[symbol] == 'T' || x0[symbol] == 'C') {
             if(x0[symbol] != x1[symbol]){
-                if(x0[symbol] == 'C' || x1[symbol] == 'C' || x1[symbol] == 'G') {
+                if((x0[symbol] == 'C' || x0[symbol] == 'G') && (x1[symbol] == 'C' || x1[symbol] == 'G')) {
                     count += 2;
                 }
                 else {
@@ -30,6 +30,7 @@ fun strCalculate(x0: String = template1, x1: String = template2): Int {
             }
         }
     }
+    println(count)
     return count
 }
 fun main(args: Array<String>) {
