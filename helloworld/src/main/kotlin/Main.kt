@@ -1,23 +1,45 @@
- fun seed(): String = "adobeMUSE"
 
- fun labNumber() : Int = 1
+    import com.diacht.ktest.compose.startTestUi
+    import kotlin.math.*
+
+fun seed(): String = "adobeMUSE"
+
+ fun labNumber() : Int = 2
 
  fun main(args: Array<String>) {
      println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-     var kitty = "Васько"
-     kitty += " \uD83D\uDC31"
-     val age = 7
-     println("Кошеня №1 - $kitty віком $age років")
-
-     val catName: String = "Мурзик \uD83D\uDC08"
-     val weight: Float = 3.5f
-     println("Кошеня №2 - $catName з вагою $weight кг")
-
-     val catName1: String = "Рудий \uD83D\uDC06"
-     val weight1: Float = 8.2f
-     val age1 = 6
-     println("Кошеня №3 - $catName1 віком $age1 років та з  вагою $weight1 кг")
+     startTestUi(seed(), labNumber())
 
 
     }
+    fun iCalculate(x0: Int = -112, x1: Int = -68, x2: Int = -67, x3: Int = -101): Double {
+        val max = maxOf(x0, x1, x2, x3)
+        return tanh(max.toDouble())
+        val result = iCalculate()
+        println(result)
+    }
+    fun dCalculate(x0: Double = -32.67, x1: Double = 0.72, x2: Double = 47.88): Double {
+        val maxAbs = max(abs(x0), max(abs(x1), abs(x2)))
+        return cos(maxAbs)
+        val result2= dCalculate()
+        println(result2)
+    }
+    fun strCalculate(x0: String = "ATGCJY", x1: String = "ATGCJY"): Int {
+            var result = 0
+
+
+            for (i in x0.indices) {
+                if ((x0[i] == 'T' || x0[i] == 'C') && x0[i] == x1[i]) {
+                }
+                else if ((x0[i] == 'T' || x0[i] == 'C') && x0[i] != x1[i]) {
+                    if (i >= x0.length / 2) {
+                        result += 2
+                    } else {
+                        result += 1
+                    }
+                }
+            }
+
+            return result
+        }
