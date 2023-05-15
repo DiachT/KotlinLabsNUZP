@@ -5,7 +5,7 @@ import kotlin.math.*
 
 fun seed(): String = "picardKotlin"
 
-fun labNumber() : Int = BuildConfig.LAB_NUMBER
+fun labNumber() : Int = 3
 
 fun iCalculate(x0 : Int = 27, x1 : Int = 98, x2 : Int = 53) : Double{
     var result : Double = sqrt((x0 * x1 * x2).toDouble()) // Розрахунок по формулі
@@ -175,9 +175,9 @@ fun getSimulationObject(myFactory : localFactory = mainFactory): localFactory {
 fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-    iCalculate() //2.1
-    dCalculate() //2.2
-    strCalculate() //2.3
+//    iCalculate() //2.1
+//    dCalculate() //2.2
+//    strCalculate() //2.3
 
     getSimulationObject(mainFactory); // 3.1 3.2
 
