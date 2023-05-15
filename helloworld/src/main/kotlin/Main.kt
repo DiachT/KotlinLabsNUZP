@@ -17,9 +17,8 @@ fun dCalculate(x0 : Double = 104.55, x1 : Double = -182.56, x2 : Double = -30.3,
     return result // Повернення результату
 }
 
-fun strCalculate(x0 : String = "AGTCJA", x1 : String = "AJCTGJ") : Int{
+fun strCalculate(x0 : String = "TGTCJA", x1 : String = "AJJTTJ") : Int{
     var result : Int = 0
-
     for (i in x0.indices) { // Цикл для проходження по рядку
         if(x0[i] == 'T' || x0[i] == 'C'){ // Умова за якої починається порівняння з другою строкою
             if (x0[i] != x1[i]) { // Порівняння символу першої строки з відповідним символом другої
@@ -91,7 +90,6 @@ class localStorage : Storage{
     }
 }
 private val productsStorage = localStorage();
-private val drinksStorage = localStorage();
 private val orderedStats = localStorage();
 
 class localMachine(storage: localStorage) : Machine(storage)
@@ -99,32 +97,36 @@ private val JuicePress = localMachine(productsStorage);
 
 class localFactory(private val productsStorage: localStorage, private val JuicePress : localMachine, private val orderedStats: localStorage) : FactoryItf(){
 
+    val drinkList = mapOf<ProductType, Receipt>(
+        ORANGE_JUICE to OrangeJuice,
+        APPLE_JUICE to AppleJuice,
+        APPLE_CARROT_JUICE to AppleCarrotJuice,
+        TOMATO_CARROT_JUICE to TomatoCarrotJuice,
+        TOMATO_JUICE to TomatoJuice
+    )
     override fun resetSimulation() {
-        productsStorage.resetSimulation() // Видаємо список всіх продуктів на збереженні
-        orderedStats.resetSimulation() // Видаляємо статистику замовлень
+        productsStorage.resetSimulation()
+        orderedStats.resetSimulation()
     }
 
     override fun loadProducts(productsFromSupplier: List<Product>) {
-        for (product in productsFromSupplier){
-            productsStorage.addProduct(product) // Получение продуктов
-        }
+        JuicePress.consumeProducts(productsFromSupplier)
     }
 
     override fun order(order: List<Pair<ProductType, Int>>): List<Product> {
         var ordered : List<Product> = mutableListOf<Product>();
         for (juice in order){
-            var receipt : Receipt? = drinkList[juice.first]
-            if (receipt != null) {
-                JuicePress.setReceipt(receipt);
-                ordered += Product(juice.first, juice.second);
-                orderedStats.addProduct(Product(juice.first, juice.second));
+            for(i in 0 until juice.second) {
+                drinkList[juice.first]?.let { JuicePress.setReceipt(it) }
+                orderedStats.addProduct(JuicePress.executeProcess())
             }
+            ordered += Product(JuicePress.executeProcess().type, juice.second)
         }
         return ordered;
     }
 
     override fun getLeftovers(): List<Product> {
-        return productsStorage.getLeftovers()
+        return JuicePress.getLeftovers()
     }
 
     override fun getEarnings(): Int {
@@ -162,14 +164,6 @@ class localFactory(private val productsStorage: localStorage, private val JuiceP
         }
         return worstDrink;
     }
-
-    val drinkList = mapOf<ProductType, Receipt>(
-        ORANGE_JUICE to OrangeJuice,
-        APPLE_JUICE to AppleJuice,
-        APPLE_CARROT_JUICE to AppleCarrotJuice,
-        TOMATO_CARROT_JUICE to TomatoCarrotJuice,
-        TOMATO_JUICE to TomatoJuice
-    )
 }
 
 val mainFactory = localFactory(productsStorage, JuicePress, orderedStats);
@@ -185,7 +179,7 @@ fun main(args: Array<String>) {
 //    dCalculate() //2.2
 //    strCalculate() //2.3
 
-    getSimulationObject();
+    getSimulationObject(mainFactory); // 3.1 3.2
 
     startTestUi(seed(), labNumber())
 }
