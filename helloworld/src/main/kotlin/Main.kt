@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
 }
 
 suspend fun serverDataCalculate(strList: List<String>): Double = coroutineScope {
-    val baseUrl = "http://diacht.2vsoft.com/api/send-number?message="
+    val baseUrl = "http://diacht.2vsoft.com/api/send-number?message=nikarionec"
     val deferredResults = strList.map { num ->
         async { performServerRequest(baseUrl + num, num) }
     }
