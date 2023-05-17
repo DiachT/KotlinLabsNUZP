@@ -18,13 +18,13 @@ fun main(args: Array<String>) {
     val strList = listOf("1", "2", "3", "4", "5")
 
     runBlocking {
-        val result = calculateServerDataAsync(strList)
+        val result = serverDataCalculate(strList)
         println(result)
         startTestUi(seed(), labNumber())
     }
 }
 
-suspend fun calculateServerDataAsync(strList: List<String>): Double = coroutineScope {
+suspend fun serverDataCalculate(strList: List<String>): Double = coroutineScope {
     val baseUrl = "http://diacht.2vsoft.com/api/send-number"
     val deferredResults = strList.map { num ->
         async { performServerRequest(baseUrl, num) }
