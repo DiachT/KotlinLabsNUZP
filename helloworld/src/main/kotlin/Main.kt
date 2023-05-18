@@ -26,9 +26,9 @@ fun main(args: Array<String>) {
 }
 
 suspend fun serverDataCalculate(strList: List<String>): Double = coroutineScope {
-    val baseUrl = "http://diacht.2vsoft.com/api/send-number?message=nikarionec"
+    val baseUrl = "http://diacht.2vsoft.com/api/send-number?message="
     val deferredResults = strList.map { num ->
-        async { performServerRequest(baseUrl + num, num) }
+        async { performServerRequest(baseUrl, num) }
     }
     val results = deferredResults.awaitAll()
     val sum = results.sumOf { abs(it).toDouble() }
@@ -36,7 +36,7 @@ suspend fun serverDataCalculate(strList: List<String>): Double = coroutineScope 
 }
 
 suspend fun performServerRequest(baseUrl: String, num: String): Int = withContext(Dispatchers.IO) {
-    val url = "$baseUrl?num=$num"
+    val url = "$baseUrl$num"
     val result = URL(url).readText().toInt()
     result
 }
