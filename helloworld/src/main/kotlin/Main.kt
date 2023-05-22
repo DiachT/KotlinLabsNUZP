@@ -2,10 +2,14 @@ import com.diacht.ktest.*
 import com.diacht.ktest.compose.startTestUi
 import com.diacht.ktest.library.BuildConfig
 import kotlin.math.*
+import kotlinx.coroutines.*
+import java.net.URL
 
 fun seed(): String = "picardKotlin"
 
 fun labNumber() : Int = BuildConfig.LAB_NUMBER
+
+// LABORATORNA ROBOTA 2
 
 fun iCalculate(x0 : Int = 27, x1 : Int = 98, x2 : Int = 53) : Double{
     var result : Double = sqrt((x0 * x1 * x2).toDouble()) // Розрахунок по формулі
@@ -32,6 +36,8 @@ fun strCalculate(x0 : String = "TGTCJA", x1 : String = "AJJTTJ") : Int{
     }
     return result // Повернення результату
 }
+
+// LABORATORNA ROBOTA 3
 
 class localStorage : Storage{
     var productStorage : List<Product> = mutableListOf<Product>();
@@ -149,20 +155,39 @@ class localFactory(private val productsStorage: localStorage, private val JuiceP
                 if (product.count > topDrink.count)
                     topDrink = product;
             }
+            return topDrink;
         }
-        return topDrink;
+        else return super.getPopularDrink()
     }
 
     override fun getUnpopularDrink(): Product {
         var statistic = orderedStats.getLeftovers();
         var worstDrink : Product = Product(NONE, 0);
-        if (statistic.size < 0){
+        if (statistic.size > 0){
             for (product in statistic) {
-                if (product.count > worstDrink.count)
+                if (product.count < worstDrink.count)
                     worstDrink = product;
             }
+            return worstDrink;
         }
-        return worstDrink;
+        else return super.getUnpopularDrink()
+    }
+
+    override fun getMostEarnings(): Pair<ProductType, Int> {
+        var statistic = orderedStats.getLeftovers();
+        var earningDrink : Pair<ProductType, Int> = Pair(NONE, 0);
+        var bestEarning : Int = 0;
+        if (statistic.size > 0){
+            for (product in statistic) {
+                var price : Int = drinkList[product.type]?.price ?: 0;
+                var earning : Int = price * product.count;
+                if(bestEarning <= earning){
+                    earningDrink = Pair(product.type,earning)
+                }
+            }
+            return earningDrink;
+        }
+        return super.getMostEarnings()
     }
 }
 
@@ -172,14 +197,39 @@ fun getSimulationObject(myFactory : localFactory = mainFactory): localFactory {
     return myFactory;
 }
 
-fun main(args: Array<String>) {
+// LABORATORNA ROBOTA 4
+
+suspend fun getNumberFromServer(s: String): Int {
+    return withContext(Dispatchers.IO) {
+        val url = URL("http://diacht.2vsoft.com/api/send-number?message=" + s)
+        val connection = url.openConnection()
+        connection.connect()
+        val input = connection.getInputStream()
+        val buffer = ByteArray(128)
+        val bytesRead = input.read(buffer)
+        input.close()
+        String(buffer, 0, bytesRead).toInt()
+    }
+}
+
+suspend fun serverDataCalculate(strList: List<String>) : Double = runBlocking {
+    var result : Double = 0.0;
+    val deferredList = strList.map { async { getNumberFromServer(it) } }
+    val numbers = deferredList.awaitAll()
+    result = cbrt(numbers.sum().toDouble())
+    return@runBlocking result;
+}
+
+suspend fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-    iCalculate() //2.1
-    dCalculate() //2.2
-    strCalculate() //2.3
+//    iCalculate() //2.1
+//    dCalculate() //2.2
+//    strCalculate() //2.3
+//
+//    getSimulationObject(mainFactory); // 3.1 3.2
 
-    getSimulationObject(mainFactory); // 3.1 3.2
+//    println(serverDataCalculate(listOf("user1", "user2", "user3"))); // 4
 
     startTestUi(seed(), labNumber())
 }
