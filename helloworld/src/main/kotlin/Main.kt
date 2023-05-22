@@ -223,13 +223,13 @@ suspend fun serverDataCalculate(strList: List<String>) : Double = runBlocking {
 suspend fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-//    iCalculate() //2.1
-//    dCalculate() //2.2
-//    strCalculate() //2.3
-//
-//    getSimulationObject(mainFactory); // 3.1 3.2
+    iCalculate() //2.1
+    dCalculate() //2.2
+    strCalculate() //2.3
 
-//    println(serverDataCalculate(listOf("user1", "user2", "user3"))); // 4
+    getSimulationObject(mainFactory); // 3.1 3.2
+
+    println(serverDataCalculate(listOf("user1", "user2", "user3"))); // 4
 
     startTestUi(seed(), labNumber())
 }
