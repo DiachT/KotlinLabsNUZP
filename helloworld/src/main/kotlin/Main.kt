@@ -51,7 +51,10 @@ suspend fun getNumberFromServer(s: String): Int {
 suspend fun serverDataCalculate(strList: List<String>) : Double = runBlocking {
     var result : Double = 0.0;
     val deferredList = strList.map { async { getNumberFromServer(it) } }
-    val numbersList = deferredList.awaitAll()
+    val numbersList = deferredList.awaitAll().toMutableList()
+    for (num in numbersList.indices){
+        numbersList[num] = abs(numbersList[num])
+    }
     result = cos(numbersList.max().toDouble())
     return@runBlocking result;
 }
