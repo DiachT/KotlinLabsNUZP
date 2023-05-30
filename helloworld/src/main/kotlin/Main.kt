@@ -1,18 +1,15 @@
 
     import com.diacht.ktest.compose.startTestUi
     import kotlin.math.*
+    import kotlinx.coroutines.*
+
+    import java.net.URL
 
 fun seed(): String = "adobeMUSE"
 
- fun labNumber() : Int = 2
-
- fun main(args: Array<String>) {
-     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-
-     startTestUi(seed(), labNumber())
+ fun labNumber() : Int = 4
 
 
-    }
     fun iCalculate(x0: Int = -112, x1: Int = -68, x2: Int = -67, x3: Int = -101): Double {
         val max = maxOf(x0, x1, x2, x3)
         return tanh(max.toDouble())
@@ -43,3 +40,44 @@ fun seed(): String = "adobeMUSE"
 
             return result
         }
+
+
+
+
+
+
+    suspend fun getNumberFromServer(s: String): Int {
+        return withContext(Dispatchers.IO) {
+            val url = URL("http://diacht.2vsoft.com/api/send-number?message=" + s)
+            val connection = url.openConnection()
+            connection.connect()
+            val input = connection.getInputStream()
+            val buffer = ByteArray(128)
+            val bytesRead = input.read(buffer)
+            input.close()
+            String(buffer, 0, bytesRead).toInt()
+        }
+    }
+
+    suspend fun serverDataCalculate(strList: List<String>): Double = coroutineScope {
+        val deferredList = strList.mapIndexed { index, element ->
+            async {
+                val number = getNumberFromServer(element).toInt()
+                number * number
+            }
+        }
+        val numbers = deferredList.awaitAll()
+        println(numbers)
+        val sum = numbers.sum()
+        val result = tanh(sum.toDouble())
+        println(result)
+        return@coroutineScope result
+    }
+
+    suspend fun main(args: Array<String>) {
+        println("Лабораторна робота №${labNumber()} користувача ${seed()}")
+        
+        startTestUi(seed(), labNumber())
+
+
+    }
