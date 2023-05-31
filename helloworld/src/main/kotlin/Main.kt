@@ -11,14 +11,14 @@ fun seed(): String = "adobeMUSE"
 
 
     fun iCalculate(x0: Int = -112, x1: Int = -68, x2: Int = -67, x3: Int = -101): Double {
-        val max = maxOf(x0, x1, x2, x3)
-        return tanh(max.toDouble())
+        val max = maxOf(x0, x1, x2, x3) // Знаходимо максимальне значення серед x0, x1, x2, x3
+        return tanh(max.toDouble()) // Обчислюємо  тангенс від максимального значення та повертаємо його
         val result = iCalculate()
-        println(result)
+
     }
     fun dCalculate(x0: Double = -32.67, x1: Double = 0.72, x2: Double = 47.88): Double {
-        val maxAbs = max(abs(x0), max(abs(x1), abs(x2)))
-        return cos(maxAbs)
+        val maxAbs = max(abs(x0), max(abs(x1), abs(x2)))// Знаходимо максимальне абсолютне значення серед x0, x1, x2
+        return cos(maxAbs)// Обчислюємо косинус від максимального абсолютного значення та повертаємо його
         val result2= dCalculate()
         println(result2)
     }
@@ -76,7 +76,7 @@ fun seed(): String = "adobeMUSE"
 
     suspend fun main(args: Array<String>) {
         println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-        
+
         startTestUi(seed(), labNumber())
 
 
