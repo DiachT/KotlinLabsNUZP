@@ -1,54 +1,56 @@
 import com.diacht.ktest.compose.startTestUi
 import org.example.helloworld.BuildConfig
-import kotlin.math.tan
-import kotlin.math.sqrt
+import java.net.HttpURLConnection
+import java.net.URL
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import kotlin.math.ln
 
 fun seed(): String = "PingvinSt"
 
 fun labNumber(): Int = BuildConfig.LAB_NUMBER
 
-fun main(args: Array<String>) {
+suspend fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-    val result1 = iCalculate()
-    println(result1)
-    val result2 = dCalculate()
-    println(result2)
-    val x0 = "ATGCT"
-    val x1 = "CTCJT"
-    val result3 = strCalculate(x0, x1)
-    println(result3)
-
-
+    val strList = listOf("x0", "x1", "x2", "x3", "x4", "x5")
+    val calculationResult = serverDataCalculate(strList)
+    println(calculationResult)
 
     startTestUi(seed(), labNumber())
 }
 
-fun dCalculate(
-    x0: Double = -52.48,
-    x1: Double = 15.12,
-    x2: Double = 0.66,
-    x3: Double = 0.84
-): Double {
-    return sqrt(x0 * x1 * x2 * x3)
-}
+suspend fun serverDataCalculate(strList: List<String>): Double = withContext(Dispatchers.IO) {
+    val values = mutableListOf<Int>()
 
-fun iCalculate(x0: Int = -18, x1: Int = 17, x2: Int = -53): Double {
-    return tan(x0 * x1 * x2.toDouble())
-}
-
-fun strCalculate(x0: String, x1: String): Int {
-    require(x0.length == x1.length) { "x0 and x1 must have the same length" }
-
-    var differenceCount = 0
-    for (i in x0.indices) {
-        val charX0 = x0[i]
-        val charX1 = x1[i]
-
-        if ((charX0 == 'T' || charX0 == 'C') && charX1 != 'T' && charX1 != 'C') {
-            differenceCount++
-        }
+    for (str in strList) {
+        val url = "http://diacht.2vsoft.com/api/send-number?message=$str"
+        val response = sendHttpGetRequest(url)
+        values.add(response)
     }
 
-    return differenceCount
+    val maxAbs = values.map { kotlin.math.abs(it) }.maxOrNull() ?: 0
+    val result = ln(maxAbs.toDouble())
+
+    result
+}
+
+private fun sendHttpGetRequest(url: String): Int {
+    val connection = URL(url).openConnection() as HttpURLConnection
+    connection.requestMethod = "GET"
+
+    val responseCode = connection.responseCode
+    val responseBody = connection.inputStream.bufferedReader().use { it.readText() }
+
+    connection.disconnect()
+
+    return if (responseCode == HttpURLConnection.HTTP_OK) {
+        try {
+            responseBody.toInt()
+        } catch (e: NumberFormatException) {
+            0
+        }
+    } else {
+        0
+    }
 }
