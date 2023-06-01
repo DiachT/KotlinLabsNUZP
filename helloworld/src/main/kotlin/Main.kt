@@ -3,6 +3,8 @@ import org.example.helloworld.BuildConfig
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.withContext
 import kotlin.math.ln
 
@@ -23,11 +25,12 @@ suspend fun main(args: Array<String>) {
 suspend fun serverDataCalculate(strList: List<String>): Double = withContext(Dispatchers.IO) {
     val values = mutableListOf<Int>()
 
-    for (str in strList) {
-        val url = "http://diacht.2vsoft.com/api/send-number?message=$str"
-        val response = sendHttpGetRequest(url)
-        values.add(response)
+    val deferredResults = strList.map { str ->
+        async { sendHttpGetRequest("http://diacht.2vsoft.com/api/send-number?message=$str") }
     }
+
+    val responses = deferredResults.awaitAll()
+    values.addAll(responses)
 
     val maxAbs = values.map { kotlin.math.abs(it) }.maxOrNull() ?: 0
     val result = ln(maxAbs.toDouble())
