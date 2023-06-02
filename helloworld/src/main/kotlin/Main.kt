@@ -1,59 +1,22 @@
-import com.diacht.ktest.compose.startTestUi
-import org.example.helloworld.BuildConfig
-import java.net.HttpURLConnection
-import java.net.URL
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.withContext
-import kotlin.math.ln
-
 fun seed(): String = "PingvinSt"
 
-fun labNumber(): Int = BuildConfig.LAB_NUMBER
+fun labNumber() : Int = 1
 
-suspend fun main(args: Array<String>) {
+fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-    val strList = listOf("x0", "x1", "x2", "x3", "x4", "x5")
-    val calculationResult = serverDataCalculate(strList)
-    println(calculationResult)
+    var kitty = "Васько"
+    kitty += " \uD83D\uDC31"
+    val age = 7
+    println("Кошеня №1 - $kitty віком $age років")
 
-    startTestUi(seed(), labNumber())
-}
+    val catName: String = "Мурзик \uD83D\uDC08"
+    val weight: Float = 3.5f
+    println("Кошеня №2 - $catName з вагою $weight кг")
 
-suspend fun serverDataCalculate(strList: List<String>): Double = withContext(Dispatchers.IO) {
-    val values = mutableListOf<Int>()
+    val catName2: String = "Рудий \uD83D\uDC06"
+    val age2: Int = 6
+    val weight2: Float = 8.2f
+    println("Кошеня №3 - $catName2 віком $age2 років та має вагу $weight2 кг.")
 
-    val deferredResults = strList.map { str ->
-        async { sendHttpGetRequest("http://diacht.2vsoft.com/api/send-number?message=$str") }
-    }
-
-    val responses = deferredResults.awaitAll()
-    values.addAll(responses)
-
-    val maxAbs = values.map { kotlin.math.abs(it) }.maxOrNull() ?: 0
-    val result = ln(maxAbs.toDouble())
-
-    result
-}
-
-private fun sendHttpGetRequest(url: String): Int {
-    val connection = URL(url).openConnection() as HttpURLConnection
-    connection.requestMethod = "GET"
-
-    val responseCode = connection.responseCode
-    val responseBody = connection.inputStream.bufferedReader().use { it.readText() }
-
-    connection.disconnect()
-
-    return if (responseCode == HttpURLConnection.HTTP_OK) {
-        try {
-            responseBody.toInt()
-        } catch (e: NumberFormatException) {
-            0
-        }
-    } else {
-        0
-    }
 }
