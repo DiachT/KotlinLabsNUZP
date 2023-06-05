@@ -27,10 +27,7 @@ fun strCalculate(x0: String = "AGJATC", x1: String = "ACATTG") : Int{
         else if (x0[index] == 'C' && x1[index] == 'C') {
             res += 0
         }
-        else if (x0[index] == 'A' && (x1[index] == 'T' || x1[index] == 'C')) {
-            res += 2
-        }
-        else if (x0[index] == 'C' && x1[index] == 'T') {
+        else if (x0[index] == 'С' && x1[index] == 'T' ) {
             res += 2
         } else {
             res += 1
