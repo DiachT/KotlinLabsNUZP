@@ -40,4 +40,3 @@ fun strCalculate(x0: String = "AGJATC", x1: String = "ACATTG") {
 
     println(res)
 }
-
