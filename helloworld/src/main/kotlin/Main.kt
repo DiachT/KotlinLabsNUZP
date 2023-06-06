@@ -40,23 +40,17 @@ fun dCalculate(
     return tan(sum)
 }
 
-fun strCalculate(
-    x0: String = "ATGCJ",
-    x1: String = "ATCJG"
-): Int {
+fun strCalculate(x0: String = "GJTCJCAGTC", x1: String = "GJTCJAAGAC"): Int {
     require(x0.length == x1.length) { "Рядки повинні мати однакову довжину" }
 
     var difference = 0
+
     for (i in x0.indices) {
         val charX0 = x0[i]
         val charX1 = x1[i]
 
         if (charX0 != charX1) {
-            if (i >= x0.length / 2) {
-                difference += 2
-            } else {
-                difference++
-            }
+            difference++
         }
     }
 
