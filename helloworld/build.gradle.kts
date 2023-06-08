@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "1.8.0"
-    id("org.jetbrains.compose") version "1.3.0"
+    kotlin("jvm") version Versions.kotlin
+    id("org.jetbrains.compose") version Versions.compose
     application
 }
 
@@ -14,8 +14,9 @@ repositories {
 }
 
 dependencies {
-    implementation("com.diacht.ktest:library:1.0.1")
+    implementation(Versions.library)
     implementation(compose.desktop.currentOs)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
     testImplementation(kotlin("test"))
 }
 
@@ -24,7 +25,7 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(Versions.jvmLevel)
     }
 
 application {

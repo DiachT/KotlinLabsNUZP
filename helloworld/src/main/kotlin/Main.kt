@@ -1,6 +1,11 @@
 import kotlin.math.*
 import com.diacht.ktest.compose.startTestUi
-import com.diacht.ktest.library.BuildConfig
+import org.example.helloworld.BuildConfig
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.net.URL
+import kotlinx.coroutines.*
+
 
 
 fun seed(): String = "Kovaal-mari"
@@ -9,34 +14,42 @@ fun seed(): String = "Kovaal-mari"
 fun labNumber() : Int = BuildConfig.LAB_NUMBER
 
 
-fun iCalculate(x0: Int = 100, x1: Int = 28, x2: Int = 127, x3: Int = -37): Double {
-    return sqrt(x0.toDouble().pow(2) + x1.toDouble().pow(2) + x2.toDouble().pow(2) + x3.toDouble().pow(2)) }
-
-
-fun dCalculate(x0: Double = 47.3, x1: Double = 88.58, x2: Double = 56.35, x3: Double = -11.07): Double {
-    return tanh(minOf(abs(x0), abs(x1), abs(x2), abs(x3)))
+suspend fun getNumberFromServer(s: String): Int {
+    return withContext(Dispatchers.IO) {
+        val url = URL("http://diacht.2vsoft.com/api/send-number?message=" + s)
+        val connection = url.openConnection()
+        connection.connect()
+        val input = connection.getInputStream()
+        val buffer = ByteArray(128)
+        val bytesRead = input.read(buffer)
+        input.close()
+        String(buffer, 0, bytesRead).toInt()
+    }
 }
 
-fun strCalculate(x0: String = "ATGJJATG", x1: String = "ATGCCATG"): Int {
-    require(x0.length == x1.length && x0.length %2 == 0 ) { "x0 and x1 must have the same length" }
-    val halfLength = x0.length / 2
-    var count = 0
-    for (i in x0.indices step 2) {
-        if (x0[i] != x1[i]) {
-            if (i < halfLength) {
-                count += 2
-            } else {
-                count += 1
-            }
+suspend fun serverDataCalculate(strList: List<String>): Double = coroutineScope {
+    var result: Double = 0.0
+    val deferredList = strList.mapIndexed { index, element ->
+        async {
+            val number = getNumberFromServer(element).toDouble()
+            number * number
         }
     }
-    return count
+    val squaredNumbers = deferredList.awaitAll()
+    result = ln(squaredNumbers.sum())
+    result
 }
 
-fun main(args: Array<String>) {
-    println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-    println(dCalculate())
-    println(iCalculate())
-    println(strCalculate())
-    startTestUi(seed(), labNumber())
+suspend fun main(args: Array<String>) {
+    //println("Лабораторна робота №${labNumber()} користувача ${seed()}")
+    //startTestUi(seed(), labNumber())
+
+    val strList = listOf("x0", "x1", "x2", "x3", "x4", "x5")
+    println("Значення x:")
+    for (element in strList) {
+        val number = getNumberFromServer(element)
+        println(number)
+    }
+    val calculationResult = serverDataCalculate(strList)
+    println("Результат обчислення: $calculationResult")
 }
