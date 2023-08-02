@@ -1,20 +1,42 @@
+import com.diacht.ktest.compose.startTestUi
+import org.example.helloworld.BuildConfig
+import kotlin.math.*
+
 fun seed(): String = "yzadorozhnij"
 
-fun labNumber() : Int = 1
+fun labNumber() : Int = BuildConfig.LAB_NUMBER
+
+fun iCalculate(x0 : Int = 109, x1 : Int = 92, x2 : Int = 57, x3 : Int = 61) : Double{ // Створення ф-ції з 3 цілочисленні аргументами що повертає дробове число
+    var res : Double = cbrt(minOf(x0,x1,x2,x3).toDouble()); // Розрахунок кубічного кореню з найменшого числа вибірки
+    return res; // Повернення результату після розрахувань
+}
+
+fun dCalculate(x0 : Double = -44.8, x1 : Double = 55.88, x2 : Double = -7.65, x3 : Double = 16.24) : Double{ // Створення ф-ції з 3 дробовими аргументами що повертає дробове число
+    var res : Double = cbrt(minOf(abs(x0), abs(x1), abs(x2), abs(x3))); // Розрахунок кубічного кореню з найменшого числа вибірки приведених до абсолюту
+    return res; // Повернення результату після розрахувань
+}
+
+fun strCalculate(x0 : String = "AGTCJA", x1 : String = "AJJTTJ") : Int{
+    var res : Int = 0
+    println("start")
+    for (i in x0.indices step 2) { // Цикл для проходження по рядку з подвійним кроком
+        if (x0[i] != x1[i]) { // Порівняння символів першої строки та другої
+            if (i <= x0.length / 2) { // Додавання +2 до результату у разі знаходження символу у першій половині рядка
+                res += 2
+            } else { // Додавання +1 до результату у разі знаходження символу у другій половині рядка
+                res++
+            }
+        }
+    }
+    return res // Повернення результату
+}
 
 fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-    var kitty = "Васько"
-    kitty += " \uD83D\uDC31"
-    val age = 7
-    println("Кошеня №1 - $kitty віком $age років")
 
-    val catName: String = "Мурзик \uD83D\uDC08"
-    val weight: Float = 3.5f
-    println("Кошеня №2 - $catName з вагою $weight кг")
+    println(iCalculate()) //Результат завдання 1
+    println(dCalculate()) //Результат завдання 2
+    println(strCalculate()) //Результат завдання 3
 
-    var catName2: String = "Рудий \uD83D\uDC06"
-    val age2 = 6
-    val weight2: Float = 8.2f
-    println("Кошеня №3 - $catName2 віком з $age2 та вагою $weight2 кг")
+    startTestUi(seed(), labNumber())
 }
