@@ -1,5 +1,7 @@
 import com.diacht.ktest.compose.startTestUi
 import org.example.helloworld.BuildConfig
+import kotlinx.coroutines.*
+import java.net.URL
 import kotlin.math.*
 
 fun seed(): String = "yzadorozhnij"
@@ -31,12 +33,35 @@ fun strCalculate(x0 : String = "AGTCJA", x1 : String = "AJJTTJ") : Int{
     return res // Повернення результату
 }
 
-fun main(args: Array<String>) {
+suspend fun getNumberFromServer(req: String): Int {
+    return withContext(Dispatchers.IO) {
+        val url = URL("http://diacht.2vsoft.com/api/send-number?message=" + req)
+        val connection = url.openConnection()
+        connection.connect()
+        val input = connection.getInputStream()
+        val buffer = ByteArray(128)
+        val bytesRead = input.read(buffer)
+        input.close()
+        String(buffer, 0, bytesRead).toInt()
+    }
+}
+
+suspend fun serverDataCalculate(strList: List<String>) : Double = runBlocking {
+    var result : Double = 0.0;
+    val deferredList = strList.map { async { getNumberFromServer(it).toDouble().pow(2.0) } }
+    val numbers = deferredList.awaitAll()
+    result = sqrt(numbers.sum().toDouble())
+    return@runBlocking result;
+}
+
+suspend fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
 
-    println(iCalculate()) //Результат завдання 1
-    println(dCalculate()) //Результат завдання 2
-    println(strCalculate()) //Результат завдання 3
+    //println(iCalculate()) //Результат завдання 1 лаб 2
+    //println(dCalculate()) //Результат завдання 2 лаб 2
+    //println(strCalculate()) //Результат завдання 3 лаб 2
+
+    println(serverDataCalculate(listOf("user1", "user2", "user3", "user4", "user5", "user6"))); //Результат завдання лаб 4
 
     startTestUi(seed(), labNumber())
 }
