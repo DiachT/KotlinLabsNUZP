@@ -15,12 +15,12 @@ fun dCalculate(x0 : Double = -44.8, x1 : Double = 55.88, x2 : Double = -7.65, x3
     return res; // Повернення результату після розрахувань
 }
 
-fun strCalculate(x0 : String = "AGTCJA", x1 : String = "AJJTTJ") : Int{
+fun strCalculate(x0 : String = "GCGAAAAJTG", x1 : String = "GCGAAAAATG") : Int{
     var res : Int = 0
     println("start")
     for (i in x0.indices step 2) { // Цикл для проходження по рядку з подвійним кроком
-        if (x0[i] != x1[i]) { // Порівняння символів першої строки та другої
-            if (i <= x0.length / 2) { // Додавання +2 до результату у разі знаходження символу у першій половині рядка
+        if (x0[i+1] != x1[i+1]) { // Порівняння символів першої строки та другої
+            if (i+1 <= x0.length / 2) { // Додавання +2 до результату у разі знаходження символу у першій половині рядка
                 res += 2
             } else { // Додавання +1 до результату у разі знаходження символу у другій половині рядка
                 res++
@@ -37,5 +37,5 @@ fun main(args: Array<String>) {
     println(dCalculate()) //Результат завдання 2
     println(strCalculate()) //Результат завдання 3
 
-    startTestUi(seed(), labNumber())
+    //startTestUi(seed(), labNumber())
 }
