@@ -19,7 +19,3 @@ fun main(args: Array<String>) {
     val weight3: Float = 8.2f
     println("Кошеня №3 - $catName3 віком $age3 років та вагою $weight3 кг")
 }
-
-
-
-`
