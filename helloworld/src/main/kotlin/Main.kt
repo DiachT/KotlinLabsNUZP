@@ -1,10 +1,9 @@
 import com.diacht.ktest.compose.startTestUi
-import org.example.helloworld.BuildConfig
 import kotlin.math.*
 
 fun seed(): String = "yzadorozhnij"
 
-fun labNumber() : Int = BuildConfig.LAB_NUMBER
+fun labNumber() : Int = 2
 
 fun iCalculate(x0 : Int = 109, x1 : Int = 92, x2 : Int = 57, x3 : Int = 61) : Double{ // Створення ф-ції з 3 цілочисленні аргументами що повертає дробове число
     var res : Double = cbrt(minOf(x0,x1,x2,x3).toDouble()); // Розрахунок кубічного кореню з найменшого числа вибірки
