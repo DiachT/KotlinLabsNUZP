@@ -18,10 +18,11 @@ fun dCalculate(x0: Double = 48.0, x1: Double = -82.88, x2: Double = -124.12, x3:
 fun strCalculate(x0: String, x1: String) : Int {
 	var counterOfDiferent: Int = 0
 	for (i in x0.indices){
-		if(x0[i] == 'T' && x1[i] == 'J' 	||
+		if(i % 2 != 0						||
+		   x0[i] == 'T' && x1[i] == 'J' 	||
 		   x0[i] == 'J' && x1[i] == 'T')
 			continue
-		else if(x0[i] != x0[i])
+		else if(x0[i] != x1[i])
 			counterOfDiferent++
 	}
 	return counterOfDiferent
@@ -29,6 +30,5 @@ fun strCalculate(x0: String, x1: String) : Int {
 
 fun main(args: Array<String>) {
 	println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-	
 	startTestUi(seed(), labNumber())
 }
