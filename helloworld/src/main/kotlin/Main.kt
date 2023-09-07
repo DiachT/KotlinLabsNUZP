@@ -1,5 +1,5 @@
 import com.diacht.ktest.compose.startTestUi
-import me.vanya.helloworld.BuildConfig
+import org.example.helloworld.BuildConfig
 import kotlin.math.*
 
 fun seed(): String = "progvan"
