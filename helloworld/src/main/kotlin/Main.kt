@@ -18,5 +18,5 @@ fun main (args: Array<String>) {
     kit += "\uD83D\uDC06"
     val age2 = 6
     val weight2: Float = 8.2f
-    println("Koшеня №3 $kit вiком $age2 pokiв та вагою $weight2 кг")
+    println("Кошеня №3 $kit віком $age2 років та вагою $weight2 кг")
 }
