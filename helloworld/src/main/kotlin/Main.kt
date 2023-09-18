@@ -1,9 +1,11 @@
 fun seed(): String = "Nikita-Pityurenko"
 
-fun labNumber() : Int = 1
+fun labNumber() : Int = BuildConfig.LAB_NUMBER
 
 fun main (args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
+
+    startTestUi(seed(), labNumber())
 
     var kitty = "Васько"
     kitty += " \uD83D\uDC31"
