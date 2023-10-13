@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm") version Versions.kotlin
     id("com.github.gmazzo.buildconfig") version "3.1.0"
@@ -10,7 +9,7 @@ subprojects {
     apply(plugin = "com.github.gmazzo.buildconfig")
 }
 
-val labNumber = 1
+val labNumber = 2
 
 allprojects {
     buildConfig {
