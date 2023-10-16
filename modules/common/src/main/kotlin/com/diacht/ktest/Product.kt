@@ -5,10 +5,10 @@ import java.util.concurrent.TimeUnit
 open class ProductType()
 
 object WATER : ProductType()
-object NONE : ProductType()
 object SUGAR : ProductType()
+object NONE : ProductType()
 
-data class Product(val type: ProductType, val count: Int)
+data class Product(val type: ProductType, var count: Int)
 
 open class Receipt(
     val products: List<Product>,
@@ -17,3 +17,4 @@ open class Receipt(
     val outProductType: ProductType,
     val price: Int,
 )
+

@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit
 
 const val MAX_PROCESS_PRODUCT = 5
 
-open class Machine(private val storage: Storage) {
+open class Machine(protected val storage: Storage) {
     private var currentReciept : Receipt? = null
 
     /**
