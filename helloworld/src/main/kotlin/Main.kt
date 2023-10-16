@@ -10,7 +10,7 @@ fun main (args: Array<String>) {
     var kitty = "Васько"
     kitty += " \uD83D\uDC31"
     val age = 7
-    println("Koшеня №1 $kitty вiком $age poкiв")
+    println("Koшеня №1 $kitty вiком $age pokiв")
 
     val catName: String = "Мурзик \uD83D\uDC08"
     val weight: Float = 3.4f
