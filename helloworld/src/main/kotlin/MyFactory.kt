@@ -4,17 +4,10 @@ import com.diacht.ktest.caffe.*
 class MyFactory (private val storage: MyStorage, private val cafeFactory: CafeMachine) : FactoryItf() {
 
     private fun getProductIndex(ProductList: List<Product>, typeOfProduct : ProductType) : Int {
-//        return ProductList.indices.find { ProductList[it].type == typeOfProduct } ?: -1
-        for ((index, product) in ProductList.withIndex()) {
-            if (product.type == typeOfProduct) {
-                return index
-            }
-        }
-        return -1
+        return ProductList.indices.find { ProductList[it].type == typeOfProduct } ?: -1
     }
 
     override fun order(order: List<Pair<ProductType, Int>>): List<Product> {
-//        println("\n")//
         val successfullyOrdered = mutableListOf<Product>()
         order.forEach{
             val receipt = when(it.first){
@@ -26,30 +19,17 @@ class MyFactory (private val storage: MyStorage, private val cafeFactory: CafeMa
                 CACAO_DRINK -> CacaoDrinkReceipt
                 else -> { throw IllegalArgumentException("No such drink") }
             }
-
-//            println("successfullyOrdered = " + successfullyOrdered + '\n')
             repeat(it.second){
-//                println("successfullyOrdered before makedrink = " + successfullyOrdered)
                 val drink  = cafeFactory.makeDrink(receipt)
-
-//                println("Drink returned by cafeFactory.makeDrink(receipt) = " + drink)
-//                println("successfullyOrdered brfore index = " + successfullyOrdered)
-
-                val index = getProductIndex(successfullyOrdered, drink.type)
-
+                val index = getProductIndex(successfullyOrdered, drink)
                 if (index != -1) {
-                    successfullyOrdered[index].count += drink.count
-                    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    successfullyOrdered[index].count++
                 }
                 else {
-                    successfullyOrdered.add(drink)
+                    successfullyOrdered.add(Product(drink, 1))
                 }
-//                println("successfullyOrdered after index= " + successfullyOrdered + '\n')
             }
-//            println("\nsuccessfullyOrdered = " + successfullyOrdered + '\n')
         }
-
-//        println("\n")
 
         return successfullyOrdered
     }

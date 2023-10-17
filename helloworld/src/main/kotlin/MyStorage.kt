@@ -6,13 +6,7 @@ class MyStorage : Storage {
     private var ProductsAndQuantity = mutableListOf<Product>()
 
     private fun getProductIndex(type : ProductType) : Int {
-//        return ProductsAndQuantity.indices.find { ProductsAndQuantity[it].type == type } ?: -1
-        for ((index, product) in ProductsAndQuantity.withIndex()) {
-            if (product.type == type) {
-                return index
-            }
-        }
-        return -1
+        return ProductsAndQuantity.indices.find { ProductsAndQuantity[it].type == type } ?: -1
     }
 
     override fun addProduct(product: Product) {
