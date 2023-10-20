@@ -21,12 +21,12 @@ class MyFactory (private val storage: MyStorage, private val cafeFactory: CafeMa
             }
             repeat(it.second){
                 val drink  = cafeFactory.makeDrink(receipt)
-                val index = getProductIndex(successfullyOrdered, drink)
+                val index = getProductIndex(successfullyOrdered, drink.type)
                 if (index != -1) {
-                    successfullyOrdered[index].count++
+                    successfullyOrdered[index] = Product(successfullyOrdered[index].type, successfullyOrdered[index].count + drink.count)
                 }
                 else {
-                    successfullyOrdered.add(Product(drink, 1))
+                    successfullyOrdered.add(drink.copy())
                 }
             }
         }

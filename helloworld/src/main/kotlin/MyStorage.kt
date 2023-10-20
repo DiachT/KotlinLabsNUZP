@@ -12,7 +12,7 @@ class MyStorage : Storage {
     override fun addProduct(product: Product) {
         val index = getProductIndex(product.type)
         if (index != -1)
-            ProductsAndQuantity[index].count += product.count
+            ProductsAndQuantity[index] = Product(ProductsAndQuantity[index].type, ProductsAndQuantity[index].count + product.count)
         else
             ProductsAndQuantity.add(product)
     }
@@ -29,7 +29,7 @@ class MyStorage : Storage {
         if(checkProductCount(productType) >= count){
             val index = getProductIndex(productType)
             if (index != -1)
-                ProductsAndQuantity[index].count -= count
+                ProductsAndQuantity[index] = Product(ProductsAndQuantity[index].type, ProductsAndQuantity[index].count - count)
             return Product(productType, count)
         }
         else

@@ -8,7 +8,7 @@ object WATER : ProductType()
 object SUGAR : ProductType()
 object NONE : ProductType()
 
-data class Product(val type: ProductType, var count: Int)
+data class Product(val type: ProductType, val count: Int)
 
 open class Receipt(
     val products: List<Product>,
