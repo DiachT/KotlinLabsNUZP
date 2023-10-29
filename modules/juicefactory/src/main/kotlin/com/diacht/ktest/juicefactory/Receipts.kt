@@ -1,12 +1,12 @@
 package com.diacht.ktest.juicefactory
 
 import com.diacht.ktest.Product
-import com.diacht.ktest.Receipt
+import com.diacht.ktest.Receipts
 import com.diacht.ktest.SUGAR
 import com.diacht.ktest.WATER
 import java.util.concurrent.TimeUnit
 
-object OrangeJuiceReceipt : Receipt(
+object OrangeJuiceReceipt : Receipts(
     products = listOf(
         Product(type = ORANGE, count = 1200),
         Product(type = WATER, count = 250),

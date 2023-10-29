@@ -16,6 +16,7 @@ repositories {
 dependencies {
     implementation(Versions.library)
     implementation(compose.desktop.currentOs)
+    implementation(project(":juicefactory"))
     testImplementation(kotlin("test"))
     }
 
