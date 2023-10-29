@@ -17,5 +17,5 @@ fun main(args: Array<String>) {
     val cat: String = "Рудий \uD83D\uDC06"
     val catAge = 6
     val catWeight: Float = 8.2f
-    println("Кошеня №3 - $cat віком $catAge років та вагою $catWeight кг")
+    println("Кошеня №3 якого звуть $cat віком $catAge років та вагою $catWeight кг")
 }
