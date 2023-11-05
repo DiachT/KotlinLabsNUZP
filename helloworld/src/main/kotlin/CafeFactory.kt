@@ -42,9 +42,9 @@ class CafeFactory (private val storage: MyStorage, private val cafeFactory: Juic
     override fun getLeftovers(): List<Product> {
         return storage.getLeftovers()
     }
-    override fun getUnpopularDrink(): Product {
-        return juicePress.getUnPopularDrink();
-    }
+//    override fun getUnpopularDrink(): Product {
+//        return juicePress.getUnPopularDrink();
+//    }
     override fun resetSimulation() {
         storage.resetSimulation();
         cafeFactory.resetSimulation();
