@@ -9,7 +9,7 @@ subprojects {
     apply(plugin = "com.github.gmazzo.buildconfig")
 }
 
-val labNumber = 2
+val labNumber = 4
 
 allprojects {
     buildConfig {
