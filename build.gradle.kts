@@ -10,7 +10,7 @@ subprojects {
     apply(plugin = "com.github.gmazzo.buildconfig")
 }
 
-val labNumber = 2
+val labNumber = 4
 
 allprojects {
     buildConfig {
@@ -30,12 +30,14 @@ repositories {
 
 dependencies {
     if (labNumber > 1) {
-        implementation(project(":helloworld"))
+        implementation(Versions.library)
     }
     implementation(project(":caffe"))
     implementation(project(":juicefactory"))
     implementation(Versions.library)
     testImplementation(kotlin("test"))
+    testImplementation(project(mapOf("path" to ":helloworld")))
+    testImplementation(project(mapOf("path" to ":helloworld")))
 }
 
 sourceSets {
