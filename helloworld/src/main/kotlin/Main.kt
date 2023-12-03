@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Assertions.assertTrue
+
 fun seed(): String = "MadScientist11"
 
 fun labNumber(): Int = 1
@@ -18,5 +20,5 @@ fun main(args: Array<String>) {
     val cat: String = "Рудий \uD83D\uDC06"
     val catWeight: Float = 8.2f
     val catAge: Int = 6
-    println("Кошеня номер три - $cat, $catAge років, з вагою $catWeight кг")
+    println("Кошеня №3 - $cat, віком $catAge з вагою $catWeight кг")
 }
