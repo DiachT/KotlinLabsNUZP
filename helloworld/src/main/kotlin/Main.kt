@@ -1,5 +1,6 @@
 import com.diacht.ktest.compose.startTestUi
 import org.example.helloworld.BuildConfig
+import kotlin.math.abs
 import kotlin.math.tanh
 import kotlin.math.pow
 
@@ -25,7 +26,10 @@ private fun Int.pow(i: Int, p: Int) : Double {
 fun iCalculate(x0 : Int = -40, x1 : Int = 26, x2 : Int = -91, x3 : Int = 77) : Double {
     return tanh(x0.pow(x0,2) + x1.pow(x1,2) + x2.pow(x2,2) + x3.pow(x3,2))
 }
-
+fun dCalculate(x0 : Double = -121.25, x1 : Double = -27.94, x2 : Double = -2.72, x3 : Double = 40.6) : Double {
+    val absVal = abs(x0) + abs(x1) + abs(x2) + abs(x3)
+    return absVal.pow(1.0/3.0);
+}
 fun strCalculate(x0: String, x1: String): Int {
     require(x0.length == x1.length) { "Length should be the same" }
 
