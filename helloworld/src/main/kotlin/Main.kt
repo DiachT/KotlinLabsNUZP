@@ -1,5 +1,3 @@
-import org.junit.jupiter.api.Assertions.assertTrue
-
 fun seed(): String = "MadScientist11"
 
 fun labNumber(): Int = 1
