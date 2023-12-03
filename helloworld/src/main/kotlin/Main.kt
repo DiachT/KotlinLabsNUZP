@@ -1,22 +1,46 @@
+import com.diacht.ktest.compose.startTestUi
+import org.example.helloworld.BuildConfig
+import kotlin.math.tanh
+import kotlin.math.pow
+
 fun seed(): String = "MadScientist11"
 
-fun labNumber(): Int = 1
+
+fun labNumber(): Int = BuildConfig.LAB_NUMBER
+
 
 fun main(args: Array<String>) {
-    println("Лабораторна робота номер один користувача ${seed()}")
+    println("Лабораторна робота №${labNumber()} користувача ${seed()}")
+    val str1 = "ATGCJ"
+    val str2 = "ATGJC"
+    val difCount = strCalculate(str1, str2)
+    println(difCount)
+    startTestUi(seed(), labNumber())
+}
 
-    var kitty = "Васько"
-    kitty += " \uD83D\uDC31"
-    val age = 7
-    println("Кошеня номер один - $kitty віком $age років")
+private fun Int.pow(i: Int, p: Int) : Double {
+    return i.toDouble().pow(p)
+}
 
-    val catName: String = "Мурзик \uD83D\uDC08"
-    val weight: Float = 3.5f
-    println("Кошеня номер два - $catName з вагою $weight кг")
+fun iCalculate(x0 : Int = -40, x1 : Int = 26, x2 : Int = -91, x3 : Int = 77) : Double {
+    return tanh(x0.pow(x0,2) + x1.pow(x1,2) + x2.pow(x2,2) + x3.pow(x3,2))
+}
 
+fun strCalculate(x0: String, x1: String): Int {
+    require(x0.length == x1.length) { "Length should be the same" }
 
-    val cat: String = "Рудий \uD83D\uDC06"
-    val catWeight: Float = 8.2f
-    val catAge: Int = 6
-    println("Кошеня №3 - $cat, віком $catAge з вагою $catWeight кг")
+    var dif = 0
+
+    for (i in x0.indices) {
+        val charX0 = x0[i]
+        val charX1 = x1[i]
+
+        if (charX0 == 'A' || charX0 == 'C') {
+            if(charX0 != charX1){
+                dif += (if(i <= x0.length / 2 - 1) 2 else 1)
+            }
+        }
+    }
+
+    return dif
 }
