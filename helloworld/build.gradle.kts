@@ -2,6 +2,7 @@ plugins {
     kotlin("jvm") version Versions.kotlin
     id("org.jetbrains.compose") version Versions.compose
     application
+
 }
 
 group = "org.example"

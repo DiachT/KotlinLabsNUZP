@@ -4,13 +4,14 @@ plugins {
     kotlin("jvm") version Versions.kotlin
     id("com.github.gmazzo.buildconfig") version "3.1.0"
     application
+
 }
 
 subprojects {
     apply(plugin = "com.github.gmazzo.buildconfig")
 }
 
-val labNumber = 2
+val labNumber = 4
 
 allprojects {
     buildConfig {
