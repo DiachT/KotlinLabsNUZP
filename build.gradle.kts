@@ -10,11 +10,11 @@ subprojects {
     apply(plugin = "com.github.gmazzo.buildconfig")
 }
 
-val labNumber = 1
+val labNumber = 4
 
 allprojects {
     buildConfig {
-        buildConfigField("int", "LAB_NUMBER", "${labNumber}")
+        buildConfigField("int", "LAB_NUMBER", "$labNumber")
     }
 }
 
