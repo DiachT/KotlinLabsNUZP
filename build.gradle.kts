@@ -14,7 +14,7 @@ val labNumber = 4
 
 allprojects {
     buildConfig {
-        buildConfigField("int", "LAB_NUMBER", "${labNumber}")
+        buildConfigField("int", "LAB_NUMBER", "$labNumber")
     }
 }
 
