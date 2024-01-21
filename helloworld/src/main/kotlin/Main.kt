@@ -37,6 +37,6 @@ suspend fun main() {
     val result = serverDataCalculate(strList)
     println("Result: $result")
 
-    println("Лабораторна робота №${labNumber()} користувача ${seed()}")
+    println("Lab №${labNumber()} user ${seed()}")
     startTestUi(seed(), labNumber())
 }
