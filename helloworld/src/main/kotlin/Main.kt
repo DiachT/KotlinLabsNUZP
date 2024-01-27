@@ -34,13 +34,13 @@ suspend fun serverDataCalculate(strList: List<String>): Double = coroutineScope 
 
 fun main() = runBlocking {
     val strList = listOf(
-        "strList[0]",
-        "strList[1]",
-        "strList[2]",
-        "strList[3]",
-        "strList[4]",
-        "strList[5]",
-        "strList[6]"
+        "3d36690ef50f7c56ce95260867c82aac",
+        "0ef9ff31c3545288d42b1ba5d3c094ee",
+        "6099bcd9ffc3a5e86298a6530d0ef35a",
+        "29dcae0d117232dd9a19618d705b0bba",
+        "16f7d155ec240fbb71e08392a1fc97f5",
+        "72bc596f4c6e6ad03086c54059a8aac0",
+        "f8bd45bec9fa28b92169a6c3b7366269"
     )
 
     val result = serverDataCalculate(strList)
