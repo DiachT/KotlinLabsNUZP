@@ -16,8 +16,7 @@ fun strCalculate(x0: String, x1: String): Int {
         val charX1 = x1[index]
         val ab1 = if (( charX0== 'C' &&  charX1 == 'G') || (charX0 == 'G' && charX1 == 'C')) 2 else 0
         val ab2=if((charX0 == 'C' || charX0 == 'G') && charX1 != 'C' && charX1 != 'G') 1 else 0
-        val ab3= if ((charX1 == 'C' || charX1 == 'G') && charX0 != 'C' && charX0 != 'G') 1 else 0
-        result += ab1+ab2+ab3
+        result += ab1+ab2
         index++
     } while (index < x0.length)
     return result
@@ -26,7 +25,7 @@ fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
     val iResult = iCalculate()
     val dResult = dCalculate()
-    val strResult = strCalculate("GJCTTAACGJ", "GJGTAAAAGJ")
+    val strResult = strCalculate("GCJTT", "CAJTG")
     println("iCalculate result: $iResult")
     println("dCalculate result: $dResult")
     println("strCalculate result: $strResult")
