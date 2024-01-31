@@ -5,11 +5,10 @@ import kotlin.math.sin
 import kotlin.math.cbrt
 fun seed(): String = "ne4eHIOLLIka"
 fun labNumber(): Int = BuildConfig.LAB_NUMBER
-fun iCalculate(x0: Int, x1: Int, x2: Int, x3: Int, x4: Int): Double {
+fun iCalculate(x0: Int=5, x1: Int=67, x2: Int=57, x3: Int=-75, x4: Int=80): Double {
     val a=minOf(x0, x1, x2, x3, x4)
-    return sin(a.toDouble())
-}
-fun dCalculate(x0: Double, x1: Double, x2: Double): Double =cbrt(Math.abs(x0) * Math.abs(x1) * Math.abs(x2))
+    return sin(a.toDouble())}
+fun dCalculate(x0: Double=-25.38, x1: Double=-111.3, x2: Double=-137.76): Double =cbrt(Math.abs(x0) * Math.abs(x1) * Math.abs(x2))
 fun strCalculate(x0: String, x1: String): Int {
     var result = 0
     var index = 0
@@ -26,8 +25,8 @@ fun strCalculate(x0: String, x1: String): Int {
 }
 fun main(args: Array<String>) {
     println("Лабораторна робота №${labNumber()} користувача ${seed()}")
-    val iResult = iCalculate(5, 67, 57, -75, 80)
-    val dResult = dCalculate(-25.38, -111.3, -137.76)
+    val iResult = iCalculate()
+    val dResult = dCalculate()
     val strResult = strCalculate("ATGCJ", "TACGJ")
     println("iCalculate result: $iResult")
     println("dCalculate result: $dResult")
