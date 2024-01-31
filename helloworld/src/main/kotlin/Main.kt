@@ -14,9 +14,9 @@ fun strCalculate(x0: String, x1: String): Int {
     do {
         val charX0 = x0[index]
         val charX1 = x1[index]
-        val ab1 = if ( charX0== 'C' &&  charX1 == 'G') 2 else 0
+        val ab1 = if (( charX0== 'C' &&  charX1 == 'G')||( charX0== 'G' &&  charX1 == 'C')) 2 else 0
         val ab2 = if ( charX0== 'C' &&  charX1 != 'C' &&  charX1 != 'G') 1 else 0
-        val ab3=if ( charX0== 'G' &&  charX1 != 'G') 1 else 0
+        val ab3=if ( charX0== 'G' &&  charX1 != 'G'&& charX1 != 'C') 1 else 0
         val ab4=if ( charX1== 'G' &&  charX0 != 'G'&& charX0 != 'C') 1 else 0
         val ab5=if ( charX1== 'C' &&  charX0 != 'C'&&  charX0 != 'G') 1 else 0
         result += ab1+ab2+ab3+ab4+ab5
