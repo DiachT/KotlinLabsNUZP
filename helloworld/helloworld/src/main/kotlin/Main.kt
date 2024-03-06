@@ -19,4 +19,4 @@ fun main(args: Array<String>) {
      val age2 = 6
      val weight2 = 8.2
      println("Кошеня №3 - $kitty2 віком $age2 років $weight2")
-     }
+}
